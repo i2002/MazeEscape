@@ -34,6 +34,7 @@ class GameDisplay {
 
 public:
   static const int matrixSize = 8;
+  friend GameDisplayAnimation;
 
   /**
    * @brief Construct a new Display Matrix object.
@@ -105,6 +106,16 @@ public:
    * @brief Reset the bomb blink state.
    */
   void resetBombBlink();
+
+private:
+  /**
+   * @brief Set matrix LED state
+   * 
+   * @param row row number
+   * @param col column number
+   * @param state LED state (on / off)
+   */
+  void setLed(int row, int col, bool state);
 };
 
 #endif // GAME_DISPLAY_H

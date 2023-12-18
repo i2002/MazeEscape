@@ -7,7 +7,7 @@
 
 
 // - Input components
-Joystick joystick(joystickPinX, joystickPinY, false, false);
+Joystick joystick(joystickPinX, joystickPinY, joystickInvertX, joystickInvertY);
 Button triggerBtn(triggerPin);
 
 // - Output components

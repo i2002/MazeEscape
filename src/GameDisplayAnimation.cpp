@@ -7,7 +7,7 @@ GameDisplayAnimation::GameDisplayAnimation(AnimationType type) :
   type{(byte) type}, currentFrame{0}
 {}
 
-void GameDisplayAnimation::render(LedControl &lc) {
+void GameDisplayAnimation::render(GameDisplay &disp) {
   if (!inProgress()) {
     return;
   }
@@ -15,7 +15,7 @@ void GameDisplayAnimation::render(LedControl &lc) {
   if (delayedExec(lastRender, 50)) {
     for (byte row = 0; row < GameDisplay::matrixSize; row++) {
       for (byte col = 0; col < GameDisplay::matrixSize; col++) {
-        lc.setLed(0, col, row, renderFrame(currentFrame, row, col));
+        disp.setLed(row, col, renderFrame(currentFrame, row, col));
       }
     }
   

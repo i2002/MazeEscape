@@ -31,20 +31,20 @@ void GameDisplay::renderGame() {
 
   for (int row = 0; row < matrixSize; row++) {
     for (int col = 0; col < matrixSize; col++) {
-      lc.setLed(0, col, row, gameCellState(row, col));
+      setLed(row, col, gameCellState(row, col));
     }
   }
 }
 
 void GameDisplay::renderAnimation() {
-  animation.render(lc);
+  animation.render(*this);
 }
 
 void GameDisplay::displayImage(MatrixImage image) {
   for (int i = 0; i < matrixSize; i++) {
     byte row = (image >> i * matrixSize) & 0xFF;
     for (int j = 0; j < matrixSize; j++) {
-      lc.setLed(0, j, i, bitRead(row, j));
+      setLed(i, j, bitRead(row, j));
     }
   }
 }
@@ -58,7 +58,7 @@ void GameDisplay::displayAnimation(AnimationType animationType, bool sync) {
 
   if (sync) {
     while (animation.inProgress()) {
-      animation.render(lc);
+      animation.render(*this);
     }
   }
 }
@@ -94,4 +94,12 @@ void GameDisplay::resetPlayerBlink() {
 void GameDisplay::resetBombBlink() {
   bombBlinkState = false;
   lastBombBlink = millis();
+}
+
+void GameDisplay::setLed(int row, int col, bool state) {
+  if (!matrixCommonAnode) {
+    lc.setLed(0, row, col, state);
+  } else {
+    lc.setLed(0, col, row, state);
+  }
 }

@@ -9,6 +9,8 @@ enum class AnimationType {
   BOMB_EXPLODE_ANIMATION
 };
 
+class GameDisplay;
+
 class GameDisplayAnimation {
   byte type;
   byte currentFrame = 0;
@@ -17,7 +19,7 @@ class GameDisplayAnimation {
 public:
   GameDisplayAnimation(AnimationType type);
 
-  void render(LedControl &lc);
+  void render(GameDisplay &disp);
 
   bool inProgress();
 
