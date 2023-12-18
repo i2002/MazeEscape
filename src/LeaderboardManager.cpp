@@ -45,6 +45,15 @@ void LeaderboardManager::saveHighscore() {
   writeHighscore(indexInsert, highscoreBuf);
 }
 
+void LeaderboardManager::resetLeaderboard() {
+  HighscoreInfo tempHighscore;
+  tempHighscore.points = maxHighscorePoints;
+
+  for (int i = 0; i < leaderboardSize; i++) {
+    writeHighscore(i, tempHighscore);
+  }
+}
+
 void LeaderboardManager::writeHighscore(int index, const HighscoreInfo& highscore) {
   if (index < leaderboardSize) {
     EEPROM.put(leaderboardStoreIndex + index * sizeof(HighscoreInfo), highscore);

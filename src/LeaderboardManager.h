@@ -61,6 +61,11 @@ public:
    */
   void saveHighscore();
 
+  /**
+   * @brief Clear stored leaderboard info.
+   */
+  void resetLeaderboard();
+
 private:
   /**
    * @brief Write on EEPROM highscore information at specified position.

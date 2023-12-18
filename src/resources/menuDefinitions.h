@@ -17,16 +17,17 @@ const MenuOption mainMenuOptions[] = {
   { "About", aboutImage, MenuActionType::ABOUT }
 };
 
-const MenuOption submenuOptions[] = {
+const MenuOption settingsSubmenuOptions[] = {
   { "LCD Light", lcdBrightnessImage, InputActionType::LCD_BRIGHTNESS_SETTING },
   { "Matrix Light", matrixBrightnessImage, InputActionType::MATRIX_BRIGHTNESS_SETTING },
   { "Sounds", soundImage, InputActionType::SOUND_SETTING },
+  { "Reset scores", resetImage, MenuActionType::RESET_LEADERBOARD },
   { "Back", backImage, MenuActionType::MENU_BACK }
 };
 
 const Menu menus[] = {
   { "Main menu", mainMenuOptions, MENU_OPTIONS_SIZE(mainMenuOptions) },
-  { "Settings", submenuOptions, MENU_OPTIONS_SIZE(submenuOptions) }
+  { "Settings", settingsSubmenuOptions, MENU_OPTIONS_SIZE(settingsSubmenuOptions) }
 };
 
 inline const Menu& getMenu(AppMenu menu) {

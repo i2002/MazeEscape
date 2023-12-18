@@ -12,6 +12,7 @@ const MatrixImage leaderboardImage = 0x007e7e1e18180000;
 const MatrixImage lcdBrightnessImage = 0x0000ffffffff0000;
 const MatrixImage matrixBrightnessImage = 0x007e7e7e7e7e7e00;
 const MatrixImage soundImage = 0x0024465757462400;
+const MatrixImage resetImage = 0x0042241818244200;
 const MatrixImage backImage = 0x0020100804081020;
 
 #endif // MATRIX_IMAGES_H
