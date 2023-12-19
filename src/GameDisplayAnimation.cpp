@@ -66,16 +66,16 @@ bool GameDisplayAnimation::renderStartupAnimation(byte frame, byte row, byte col
 
 bool GameDisplayAnimation::renderBombExplodeAnimation(byte frame, byte row, byte col) {
   Position bombPos = game.getBombPosition() - game.getViewportOffset();
-  if (row != bombPos.y && col != bombPos.x) {
+  if (row != bombPos.getY() && col != bombPos.getX()) {
     return game.getCellType(Position{col, row} + game.getViewportOffset()) != CellType::EMPTY;
   }
 
-  if (row == bombPos.y) {
-    return col <= bombPos.x + frame && col >= bombPos.x - frame;
+  if (row == bombPos.getY()) {
+    return col <= bombPos.getX() + frame && col >= bombPos.getX() - frame;
   }
 
-  if (col == bombPos.x) {
-    return row <= bombPos.y + frame && row >= bombPos.y - frame;
+  if (col == bombPos.getX()) {
+    return row <= bombPos.getY() + frame && row >= bombPos.getY() - frame;
   }
 
   return false;

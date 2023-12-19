@@ -9,19 +9,19 @@ void InputManager::setupInput(InputActionType type) {
   actions.preview(state);
 }
 
-void InputManager::processMovement(JoystickPosition pos) {
+void InputManager::processMovement(Direction dir) {
   bool stateChanged = false;
   switch ((InputType) inputType) {
     case InputType::SELECT_INPUT:
-      stateChanged = processSelectInputMovement(pos);
+      stateChanged = processSelectInputMovement(dir);
       break;
 
     case InputType::RANGE_INPUT:
-      stateChanged = processRangeInputMovement(pos);
+      stateChanged = processRangeInputMovement(dir);
       break;
 
     case InputType::TEXT_INPUT:
-      stateChanged = processTextInputMovement(pos);
+      stateChanged = processTextInputMovement(dir);
       break;
   }
 
@@ -54,34 +54,34 @@ void InputManager::setupTextInput(const char* title, byte maxLen, const char* in
   inputType = (byte) InputType::TEXT_INPUT;
 }
 
-bool InputManager::processSelectInputMovement(JoystickPosition pos) {
-  if (pos == JoystickPosition::DOWN) {
+bool InputManager::processSelectInputMovement(Direction dir) {
+  if (dir == Direction::DOWN) {
     return state.selectInput.nextOption();
-  } else if (pos == JoystickPosition::UP) {
+  } else if (dir == Direction::UP) {
     return state.selectInput.prevOption();
   }
 
   return false;
 }
 
-bool InputManager::processRangeInputMovement(JoystickPosition pos) {
-  if (pos == JoystickPosition::LEFT) {
+bool InputManager::processRangeInputMovement(Direction dir) {
+  if (dir == Direction::LEFT) {
     return state.rangeInput.stepsDecrement();
-  } else if (pos == JoystickPosition::RIGHT) {
+  } else if (dir == Direction::RIGHT) {
     return state.rangeInput.stepsIncrement();
   }
 
   return false;
 }
 
-bool InputManager::processTextInputMovement(JoystickPosition pos) {
-  if (pos == JoystickPosition::LEFT) {
+bool InputManager::processTextInputMovement(Direction dir) {
+  if (dir == Direction::LEFT) {
     state.textInput.moveCursorLeft();
-  } else if (pos == JoystickPosition::RIGHT) {
+  } else if (dir == Direction::RIGHT) {
     state.textInput.moveCursorRight();
-  } else if (pos == JoystickPosition::UP) {
+  } else if (dir == Direction::UP) {
     state.textInput.nextChar();
-  } else if (pos == JoystickPosition::DOWN) {
+  } else if (dir == Direction::DOWN) {
     state.textInput.prevChar();
   }
 

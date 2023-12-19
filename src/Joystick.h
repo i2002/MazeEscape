@@ -2,11 +2,7 @@
 #define JOYSTICK_H
 
 #include <Arduino.h>
-
-/** @enum Joystick position (UNCHANGED meaning the state is the same as last read) */
-enum class JoystickPosition {
-  UP, DOWN, LEFT, RIGHT, NEUTRAL
-};
+#include "Direction.h"
 
 
 /**
@@ -28,7 +24,7 @@ class Joystick {
   const bool invertY;
 
   // Joystick state
-  JoystickPosition currentJoystickState = JoystickPosition::NEUTRAL;
+  Direction currentJoystickState = Direction::NEUTRAL;
   unsigned long lastUpdate = 0;
   bool repeatedInput = false;
 
@@ -66,9 +62,9 @@ public:
   /**
    * @brief Get current joystick state.
    *
-   * @return JoystickPosition
+   * @return Direction
    */
-  JoystickPosition getState();
+  Direction getState();
 
 private:
   /**
@@ -100,7 +96,7 @@ private:
    * @return true the specified joystick position is triggered on upper threshold
    * @return false the specified joystick position is triggered on lower threshold
    */
-  bool isUpperThreshold(JoystickPosition pos);
+  bool isUpperThreshold(Direction pos);
 };
 
 #endif // JOYSTICK_H

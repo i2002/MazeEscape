@@ -1,7 +1,7 @@
 #ifndef INPUT_MANAGER_H
 #define INPUT_MANAGER_H
 
-#include "Joystick.h"
+#include "Direction.h"
 #include "RangeInput.h"
 #include "SelectInput.h"
 #include "TextInput.h"
@@ -31,7 +31,7 @@ class InputManager {
 public:
   void setupInput(InputActionType type);
 
-  void processMovement(JoystickPosition pos);
+  void processMovement(Direction dir);
 
   void processActionBtn();
 
@@ -45,11 +45,11 @@ private:
 
   void setupTextInput(const char* title, byte maxLen, const char* initialValue = nullptr);
 
-  bool processSelectInputMovement(JoystickPosition pos);
+  bool processSelectInputMovement(Direction dir);
 
-  bool processRangeInputMovement(JoystickPosition pos);
+  bool processRangeInputMovement(Direction dir);
 
-  bool processTextInputMovement(JoystickPosition pos);
+  bool processTextInputMovement(Direction dir);
 };
 
 #endif // INPUT_MANAGER_H

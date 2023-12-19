@@ -12,37 +12,37 @@ bool Joystick::processMovement() {
   bool stateChanged = false;
 
   // joystick returned to neutral
-  bool returnedFromUp = currentJoystickState == JoystickPosition::UP && checkReturn(joystickY, isUpperThreshold(JoystickPosition::UP));
-  bool returnedFromDown = currentJoystickState == JoystickPosition::DOWN && checkReturn(joystickY, isUpperThreshold(JoystickPosition::DOWN));
-  bool returnedFromLeft = currentJoystickState == JoystickPosition::LEFT && checkReturn(joystickX, isUpperThreshold(JoystickPosition::LEFT));
-  bool returnedFromRight = currentJoystickState == JoystickPosition::RIGHT && checkReturn(joystickX, isUpperThreshold(JoystickPosition::RIGHT));
+  bool returnedFromUp = currentJoystickState == Direction::UP && checkReturn(joystickY, isUpperThreshold(Direction::UP));
+  bool returnedFromDown = currentJoystickState == Direction::DOWN && checkReturn(joystickY, isUpperThreshold(Direction::DOWN));
+  bool returnedFromLeft = currentJoystickState == Direction::LEFT && checkReturn(joystickX, isUpperThreshold(Direction::LEFT));
+  bool returnedFromRight = currentJoystickState == Direction::RIGHT && checkReturn(joystickX, isUpperThreshold(Direction::RIGHT));
   bool joystickReturned = returnedFromUp || returnedFromDown || returnedFromRight || returnedFromLeft;
 
   if (joystickReturned) {
-    currentJoystickState = JoystickPosition::NEUTRAL;
+    currentJoystickState = Direction::NEUTRAL;
     stateChanged = true;
   }
 
   // movement only from neutral position
-  if (currentJoystickState == JoystickPosition::NEUTRAL || joystickReturned) {
-    if (checkThreshold(joystickY, isUpperThreshold(JoystickPosition::UP))) {
-      currentJoystickState = JoystickPosition::UP;
+  if (currentJoystickState == Direction::NEUTRAL || joystickReturned) {
+    if (checkThreshold(joystickY, isUpperThreshold(Direction::UP))) {
+      currentJoystickState = Direction::UP;
       stateChanged = true;
-    } else if (checkThreshold(joystickY, isUpperThreshold(JoystickPosition::DOWN))) {
-      currentJoystickState = JoystickPosition::DOWN;
+    } else if (checkThreshold(joystickY, isUpperThreshold(Direction::DOWN))) {
+      currentJoystickState = Direction::DOWN;
       stateChanged = true;
-    } else if (checkThreshold(joystickX, isUpperThreshold(JoystickPosition::LEFT))) {
-      currentJoystickState = JoystickPosition::LEFT;
+    } else if (checkThreshold(joystickX, isUpperThreshold(Direction::LEFT))) {
+      currentJoystickState = Direction::LEFT;
       stateChanged = true;
-    } else if (checkThreshold(joystickX, isUpperThreshold(JoystickPosition::RIGHT))) {
-      currentJoystickState = JoystickPosition::RIGHT;
+    } else if (checkThreshold(joystickX, isUpperThreshold(Direction::RIGHT))) {
+      currentJoystickState = Direction::RIGHT;
       stateChanged = true;
     }
   }
 
   if (stateChanged) {
     repeatedInput = false;
-  } else if (currentJoystickState != JoystickPosition::NEUTRAL) {
+  } else if (currentJoystickState != Direction::NEUTRAL) {
     if (!repeatedInput && (millis() - lastUpdate >= repeatedInputTimeout)) {
       repeatedInput = true;
     }
@@ -59,7 +59,7 @@ bool Joystick::processMovement() {
   return stateChanged;
 }
 
-JoystickPosition Joystick::getState() {
+Direction Joystick::getState() {
   return currentJoystickState;
 }
 
@@ -71,15 +71,15 @@ bool Joystick::checkReturn(int value, bool upper) {
   return upper ? (value < joystickUpperThreshold - joystickReturnThreshlold) : (value > joystickLowerThreshold + joystickReturnThreshlold);
 }
 
-bool Joystick::isUpperThreshold(JoystickPosition pos) {
+bool Joystick::isUpperThreshold(Direction pos) {
   switch(pos) {
-    case JoystickPosition::UP:
+    case Direction::UP:
       return invertY;
-    case JoystickPosition::DOWN:
+    case Direction::DOWN:
       return !invertY;
-    case JoystickPosition::LEFT:
+    case Direction::LEFT:
       return invertX;
-    case JoystickPosition::RIGHT:
+    case Direction::RIGHT:
       return !invertX;
     default:
       return false;

@@ -1,7 +1,6 @@
 #include "Game.h"
 #include "context.h"
 
-const int Game::playerMovementMatrix[4][2] = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
 
 void Game::startGame() {
   generateMatrix();
@@ -10,15 +9,12 @@ void Game::startGame() {
   statusDisp.setupGameInfo(1);
 }
 
-bool Game::playerMove(JoystickPosition pos) {
-  if (pos == JoystickPosition::NEUTRAL) {
+bool Game::playerMove(Direction dir) {
+  if (dir == Direction::NEUTRAL) {
     return true;
   }
 
-  Position newPos = {
-    playerPos.x + playerMovementMatrix[(int) pos][0],
-    playerPos.y + playerMovementMatrix[(int) pos][1],
-  };
+  Position newPos = playerPos.nextPos(dir);
 
   if (!validatePos(newPos)) {
     return false;
@@ -54,7 +50,7 @@ bool Game::bombTick(unsigned long time) {
 }
 
 CellType Game::getCellType(Position pos) const {
-  CellType res = gameMatrix[pos.y][pos.x];
+  CellType res = gameMatrix[pos.getY()][pos.getX()];
   if (res == CellType::EMPTY && pos == playerPos) {
     res = CellType::PLAYER;
   }
@@ -63,8 +59,8 @@ CellType Game::getCellType(Position pos) const {
 }
 
 Position Game::getViewportOffset() const {
-  int offsetX = min(max(0, playerPos.x - (GameDisplay::matrixSize / 2)), GameDisplay::matrixSize);
-  int offsetY = min(max(0, playerPos.y - (GameDisplay::matrixSize / 2)), GameDisplay::matrixSize);
+  int offsetX = min(max(0, playerPos.getX() - (GameDisplay::matrixSize / 2)), GameDisplay::matrixSize);
+  int offsetY = min(max(0, playerPos.getY() - (GameDisplay::matrixSize / 2)), GameDisplay::matrixSize);
   return Position{offsetX, offsetY};
 }
 
@@ -77,7 +73,7 @@ Position Game::getBombPosition() const {
 }
 
 void Game::setCellType(Position pos, CellType type) {
-  gameMatrix[pos.y][pos.x] = type;
+  gameMatrix[pos.getY()][pos.getX()] = type;
 }
 
 GameState Game::getState() {
@@ -90,7 +86,7 @@ int Game::getPoints() {
 
 void Game::generateMatrix() {
   int wallsNr = random(0.5 * matrixHeight * matrixWidth, 0.75 * matrixHeight * matrixWidth + 1);
-  playerPos = randomPos();
+  playerPos = Position::randomPos();
 
   for (int i = 0; i < matrixHeight; i++) {
     for (int j = 0; j < matrixWidth; j++) {
@@ -99,10 +95,10 @@ void Game::generateMatrix() {
   }
 
   for (int i = 0; i < wallsNr; i++) {
-    Position wallPos = randomPos();
+    Position wallPos = Position::randomPos();
 
     // do not generate walls over player
-    if (abs(playerPos.x - wallPos.x) < 2 && abs(playerPos.y - wallPos.y) < 2) {
+    if (abs(playerPos.getX() - wallPos.getX()) < 2 && abs(playerPos.getY() - wallPos.getY()) < 2) {
       i--;
       continue;
     }
@@ -115,7 +111,7 @@ void Game::explodeBomb() {
   bombActive = false;
   int nrDestroyed = 0;
   for (int row = 0; row < matrixHeight; row++) {
-    Position pos = {bombPos.x, row};
+    Position pos = {bombPos.getX(), row};
     if (getCellType(pos) == CellType::WALL) {
       nrDestroyed++;
     }
@@ -127,14 +123,14 @@ void Game::explodeBomb() {
   }
 
   for (int col = 0; col < matrixWidth; col++) {
-    Position pos = {col, bombPos.y};
+    Position pos = {col, bombPos.getY()};
     if (getCellType(pos) == CellType::WALL) {
       nrDestroyed++;
     }
     setCellType(pos, CellType::EMPTY);
 
     if (pos == playerPos) {
-      gameState = GameState::LOST;
+      playerHit();
     }
   }
 
@@ -157,7 +153,7 @@ bool Game::checkWinCondition() {
 }
 
 bool Game::validatePos(Position pos) {
-  if (pos.x < 0 || pos.y < 0 || pos.x >= matrixWidth || pos.y >= matrixHeight) {
+  if (!pos.isValid()) {
     return false;
   }
 
@@ -168,9 +164,10 @@ bool Game::validatePos(Position pos) {
   return true;
 }
 
-Position Game::randomPos() {
-  return {
-    (int)random(0, matrixWidth),
-    (int)random(0, matrixHeight)
-  };
+void Game::playerHit() {
+  // TODO: decrease lives
+  // TODO: check death
+  gameState = GameState::LOST;
 }
+
+

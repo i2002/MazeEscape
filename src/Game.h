@@ -1,7 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "Joystick.h"
+#include <Arduino.h>
+#include "Position.h"
+#include "Direction.h"
 
 /**
  * @brief The current state of the game.
@@ -20,48 +22,20 @@ enum class CellType {
 
 
 /**
- * @brief Represents a position on the game matrix
- */
-struct Position {
-  int x;
-  int y;
-
-  bool operator==(const Position &other) {
-    return x == other.x && y == other.y;
-  }
-
-  bool operator!=(const Position &other) {
-    return x != other.x || y != other.y;
-  }
-
-  Position operator+(const Position &other) {
-    Position res;
-    res.x = x + other.x;
-    res.y = y + other.y;
-    return res;
-  }
-
-  Position operator-(const Position &other) {
-    Position res;
-    res.x = x - other.x;
-    res.y = y - other.y;
-    return res;
-  }
-};
-
-
-/**
  * @brief Manage the game state and actions.
  */
 class Game {
   // Game configuration
+public:
   static const int matrixHeight = 16;
   static const int matrixWidth = 16;
+
+private:
   static const int maxBombs = 5;
+  static const int maxBullets = 5;
+  static const int maxEnemies = 10;
   static const unsigned long bombExplodeTime = 2000;
 
-  // Player movement matrix
-  static const int playerMovementMatrix[4][2];
 
   // Game state
   GameState gameState = GameState::NOT_STARTED;
@@ -82,11 +56,11 @@ public:
   /**
    * @brief Move the current player position on the game map.
    * 
-   * @param pos the joystick position which indicates the direction
+   * @param pos the direction of the movement
    * @return true the player position changed
    * @return false the player position could not be changed (wall intersection)
    */
-  bool playerMove(JoystickPosition pos);
+  bool playerMove(Direction dir);
 
   /**
    * @brief Place the bomb on current player position.
@@ -185,13 +159,6 @@ private:
    * @return false if the new position is invalid (outside the matrix bounds or wall collision)
    */
   bool validatePos(Position pos);
-
-  /**
-   * @brief Generate a valid random position inside game matrix.
-   * 
-   * @return Position 
-   */
-  Position randomPos();
 };
 
 #endif // GAME_H
