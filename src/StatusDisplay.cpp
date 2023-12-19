@@ -58,6 +58,17 @@ byte rightArrow[8] = {
 	0b00000
 };
 
+byte heart[8] = {
+	0b00000,
+	0b00000,
+	0b01010,
+	0b11111,
+	0b11111,
+	0b01110,
+	0b00100,
+	0b00000
+};
+
 
 void StatusDisplay::setup() {
   lcd.begin(16, 2);
@@ -68,6 +79,7 @@ void StatusDisplay::setup() {
   lcd.createChar(DOWN_ARROW, downArrow);
   lcd.createChar(LEFT_ARROW, leftArrow);
   lcd.createChar(RIGHT_ARROW, rightArrow);
+  lcd.createChar(HEART, heart);
 }
 
 void StatusDisplay::setBrightness(byte level, bool save) {
@@ -203,7 +215,7 @@ void StatusDisplay::updateLives(byte lives) {
   printBlank(13, 16, 0);
   lcd.setCursor(13, 0);
   for (int i = 0; i < lives; i++) {
-    lcd.print('#');
+    lcd.write(HEART);
   }
 }
 

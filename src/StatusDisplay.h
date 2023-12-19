@@ -11,6 +11,7 @@ const byte UP_ARROW = 1;
 const byte DOWN_ARROW = 2;
 const byte LEFT_ARROW = 3;
 const byte RIGHT_ARROW = 4;
+const byte HEART = 5;
 
 typedef const char* (Screen)[2];
 

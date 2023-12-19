@@ -15,7 +15,6 @@ void Game::startGame() {
   points = 0;
   lives = 3;
   gameState = GameState::RUNNING;
-  statusDisp.setupGameInfo(level, lives, points);
   levelStartup();
 }
 
