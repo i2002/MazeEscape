@@ -72,3 +72,23 @@ On the side of the case there are 3 pins that can be used for serial programming
 ![Board top view](doc/board_top.jpg)
 
 ![Board bottom view](doc/board_bot.jpg)
+
+## Resources
+
+These are the resources that helped me design and program the project:
+
+- Create custom characters and matrix images
+  - [https://omerk.github.io/lcdchargen/](https://omerk.github.io/lcdchargen/)
+  - [https://xantorohara.github.io/led-matrix-editor](https://xantorohara.github.io/led-matrix-editor/)
+
+- Build for using Atmega328P sepparated from arduino board
+  - [https://www.electronicshub.org/make-your-own-arduino-board/](https://www.electronicshub.org/make-your-own-arduino-board/)
+  - [https://docs.arduino.cc/hacking/hardware/building-an-arduino-on-a-breadboard](https://docs.arduino.cc/hacking/hardware/building-an-arduino-on-a-breadboard)
+  - [https://www.instructables.com/DIY-Arduino-UNO-How-to-Make-Your-Own-Arduino-Uno-B/](https://www.instructables.com/DIY-Arduino-UNO-How-to-Make-Your-Own-Arduino-Uno-B/)
+
+- Burning Arduino bootloadere on Atmega328P microcontroller
+  - [https://www.instructables.com/Burning-Bootloaders-Into-AVRs-Using-Arduino/](https://www.instructables.com/Burning-Bootloaders-Into-AVRs-Using-Arduino/)
+  - [https://docs.arduino.cc/built-in-examples/arduino-isp/ArduinoISP](https://docs.arduino.cc/built-in-examples/arduino-isp/ArduinoISP)
+  
+- Note frequencies for buzzer sounds
+  - [https://docs.arduino.cc/built-in-examples/digital/toneMelody](https://docs.arduino.cc/built-in-examples/digital/toneMelody)
