@@ -277,8 +277,7 @@ void Game::levelStartup() {
   lives = 3;
   soundManager.playSound(SoundType::LEVEL_START);
 
-  const Screen level = {"Prepare level"};
-  statusDisp.printScreen(level);
+  statusDisp.printTitle("Level setup");
   gameDisp.displayAnimation(AnimationType::START_LEVEL_ANIMATION);
   appStateManager.changeState(AppState::LEVEL_START);
 }
