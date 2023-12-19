@@ -6,8 +6,8 @@
  * @brief Represents a position in the game matrix
  */
 class Position {
-  int x;
-  int y;
+  char x;
+  char y;
 
 public:
   /**
@@ -21,7 +21,7 @@ public:
    * @param x the column in the game matrix
    * @param y the row in the game matrix
    */
-  Position(int x, int y);
+  Position(char x, char y);
 
   /**
    * @brief Generate a valid random position inside game matrix.
@@ -59,6 +59,14 @@ public:
    * @return Position 
    */
   Position nextPos(Direction dir) const;
+
+  /**
+   * @brief Get the distance between two positions.
+   * 
+   * @param other the other position
+   * @return byte 
+   */
+  byte distance(const Position &other) const;
 
   // Define comparison and arithmetic operators
   bool operator==(const Position &other) const;

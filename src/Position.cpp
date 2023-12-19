@@ -1,16 +1,16 @@
 #include "Position.h"
 #include "Game.h"
 
-static const int positionMovementMatrix[5][2] = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}, {0, 0}};
+static const char positionMovementMatrix[5][2] = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}, {0, 0}};
 
 Position::Position(): Position{0, 0} {}
 
-Position::Position(int _x, int _y): x{_x}, y{_y} {}
+Position::Position(char _x, char _y): x{_x}, y{_y} {}
 
 Position Position::randomPos() {
   return {
-    (int) random(0, Game::matrixWidth),
-    (int) random(0, Game::matrixHeight)
+    (char) random(0, Game::matrixWidth),
+    (char) random(0, Game::matrixHeight)
   };
 }
 
@@ -32,9 +32,13 @@ bool Position::isValid() const {
 
 Position Position::nextPos(Direction dir) const {
   return {
-    getX() + positionMovementMatrix[(int) dir][0],
-    getY() + positionMovementMatrix[(int) dir][1],
+    char(getX() + positionMovementMatrix[(int) dir][0]),
+    char(getY() + positionMovementMatrix[(int) dir][1])
   };
+}
+
+byte Position::distance(const Position &other) const {
+  return abs(getX() - other.getX()) + abs(getY() - other.getY());
 }
 
 bool Position::operator==(const Position &other) const {
@@ -47,16 +51,16 @@ bool Position::operator!=(const Position &other) const {
 
 Position Position::operator+(const Position &other) const {
   Position res = {
-    getX() + other.getX(),
-    getY() + other.getY()
+    char(getX() + other.getX()),
+    char(getY() + other.getY())
   };
   return res;
 }
 
 Position Position::operator-(const Position &other) const {
   Position res = {
-    getX() - other.getX(),
-    getY() - other.getY()
+    char(getX() - other.getX()),
+    char(getY() - other.getY())
   };
   return res;
 }

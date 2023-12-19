@@ -21,4 +21,16 @@ inline bool delayedExec(unsigned long &lastExec, unsigned long delay) {
   return false;
 }
 
+/**
+ * @brief Return true with a percentage chance.
+ * Assuming random() returns a linear distribution, this function returns true with the specified chance.
+ * 
+ * @param percent the chance of returning true
+ * @return true if random chance, false otherwise
+ */
+inline bool randomChance(int percent) {
+  int rand = random(0, 100);
+  return rand >= (100 - percent);
+}
+
 #endif // UTILS_H

@@ -29,8 +29,8 @@ void AppStateManager::changeState(AppState newState) {
       break;
 
     case AppState::ABOUT:
-      statusDisp.printScreen(aboutScreen);
-      setInputContext(AppInputContext::SKIP_INPUT);
+      // statusDisp.printScreen(aboutScreen);
+      // setInputContext(AppInputContext::SKIP_INPUT);
       break;
 
     case AppState::GAME_RUNNING:

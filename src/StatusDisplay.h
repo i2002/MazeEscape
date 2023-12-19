@@ -31,8 +31,10 @@ public:
   void printInputChar(byte cursor, char inputChar);
   void printMenuArrow(bool canPrev = true, bool canNext = true);
 
-  void setupGameInfo(int level);
-  void updatePoints(int points);
+  void setupGameInfo();
+  void updatePoints(byte points);
+  void updateLevel(byte level);
+  void updateLives(byte lives);
 
 private:
   void resetDisplay();

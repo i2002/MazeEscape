@@ -8,7 +8,9 @@ enum class InputActionType {
   MATRIX_BRIGHTNESS_SETTING,
   SOUND_SETTING,
   LEADERBOARD_VIEW,
-  HIGHSCORE_NAME
+  HIGHSCORE_NAME,
+  ABOUT_SCREENS,
+  HELP_SCREENS
 };
 
 union InputState;
@@ -41,6 +43,10 @@ private:
   bool leaderboardClose(byte option);
 
   void highscoreNameAction(const char* input);
+
+  void aboutPreview(byte option);
+
+  void helpPreview(byte option);
 };
 
 #endif // INPUT_HANDLERS_H

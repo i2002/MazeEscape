@@ -9,8 +9,10 @@ struct MenuStackItem {
 };
 
 class MenuManager {
+  static const int maxMenuStack = 3;
+
   byte stackSize = 0;
-  MenuStackItem menuStack[5];
+  MenuStackItem menuStack[maxMenuStack];
 
 public:
   void resetMenu(const Menu &menu);

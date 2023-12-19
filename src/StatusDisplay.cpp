@@ -168,20 +168,34 @@ void StatusDisplay::printMenuArrow(bool canPrev, bool canNext) {
   }
 }
 
-void StatusDisplay::setupGameInfo(int level) {
+void StatusDisplay::setupGameInfo() {
   resetDisplay();
 
-  lcd.print("Level ");
-  lcd.print(level);
+  lcd.print("Lv ");
   lcd.setCursor(0, 1);
   lcd.print("Points:");
 
+  updateLevel(1);
   updatePoints(0);
+  updateLives(3);
 }
 
-void StatusDisplay::updatePoints(int points) {
+void StatusDisplay::updatePoints(byte points) {
   lcd.setCursor(8, 1);
   lcd.print(points);
+}
+
+void StatusDisplay::updateLevel(byte level) {
+  lcd.setCursor(3, 0);
+  lcd.print(level);
+}
+
+void StatusDisplay::updateLives(byte lives) {
+  printBlank(13, 16, 0);
+  lcd.setCursor(13, 0);
+  for (int i = 0; i < lives; i++) {
+    lcd.print("#");
+  }
 }
 
 void StatusDisplay::resetDisplay() {

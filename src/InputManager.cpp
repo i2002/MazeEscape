@@ -1,6 +1,7 @@
 #include "InputManager.h"
 #include <new>
 #include "context.h"
+#include "resources/sounds.h"
 
 
 void InputManager::setupInput(InputActionType type) {
@@ -33,6 +34,7 @@ void InputManager::processMovement(Direction dir) {
 void InputManager::processActionBtn() {
   bool inputReturn = actions.inputReturn(state);
   actions.action(state);
+  soundManager.playSound(SoundType::INPUT_SELECTION);
 
   if (inputReturn) {
     appStateManager.stateTransition();

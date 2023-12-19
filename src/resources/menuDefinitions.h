@@ -11,10 +11,10 @@ enum class AppMenu {
 
 const MenuOption mainMenuOptions[] = {
   { "Start game", startGameImage, MenuActionType::START_GAME },
-  { "Tutorial", tutorialImage, MenuActionType::NO_ACTION },
+  { "Help", tutorialImage, InputActionType::HELP_SCREENS },
   { "Settings", settingsImage, AppMenu::SETTINGS_SUBMENU },
   { "Leaderboard", leaderboardImage, InputActionType::LEADERBOARD_VIEW },
-  { "About", aboutImage, MenuActionType::ABOUT }
+  { "About", aboutImage, InputActionType::ABOUT_SCREENS }
 };
 
 const MenuOption settingsSubmenuOptions[] = {

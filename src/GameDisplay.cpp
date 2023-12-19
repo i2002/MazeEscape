@@ -4,6 +4,8 @@
 #include "context.h"
 
 
+GameDisplay::GameDisplay() : lc{dinPin, clockPin, loadPin, 1} {}
+
 void GameDisplay::setup() {
   lc.shutdown(0, false);
   lc.setIntensity(0, getBrightness());
@@ -63,19 +65,23 @@ void GameDisplay::displayAnimation(AnimationType animationType, bool sync) {
   }
 }
 
-bool GameDisplay::gameCellState(int row, int col) {
+bool GameDisplay::gameCellState(char row, char col) {
   Position pos = Position{col, row} + game.getViewportOffset();
   CellType cell = game.getCellType(pos);
   switch (cell) {
     case CellType::EMPTY:
       return false;
+    case CellType::FINISH:
+      finishBlinkState = !finishBlinkState;
+      return finishBlinkState;
     case CellType::WALL:
+    case CellType::BULLET:
       return true;
-    case CellType::BOMB:
-      if (delayedExec(lastBombBlink, bombBlinkInterval)) {
-        bombBlinkState = !bombBlinkState;
+    case CellType::ENEMY:
+      if (delayedExec(lastEnemyBlink, enemyBlinkState ? enemyBlinkInterval * 3 : enemyBlinkInterval)) {
+        enemyBlinkState = !enemyBlinkState;
       }
-      return bombBlinkState;
+      return enemyBlinkState;
     case CellType::PLAYER:
       if (delayedExec(lastPlayerBlink, playerBlinkInterval)) {
         playerBlinkState = !playerBlinkState;
@@ -91,12 +97,12 @@ void GameDisplay::resetPlayerBlink() {
   lastPlayerBlink = millis();
 }
 
-void GameDisplay::resetBombBlink() {
-  bombBlinkState = false;
-  lastBombBlink = millis();
+void GameDisplay::resetEnemyBlink() {
+  enemyBlinkState = false;
+  lastEnemyBlink = millis();
 }
 
-void GameDisplay::setLed(int row, int col, bool state) {
+void GameDisplay::setLed(char row, char col, bool state) {
   if (!matrixCommonAnode) {
     lc.setLed(0, row, col, state);
   } else {

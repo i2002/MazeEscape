@@ -31,8 +31,8 @@ byte GameDisplayAnimation::getLength() {
   switch((AnimationType) type) {
     case AnimationType::STARTUP_ANIMATION:
       return 4;
-    case AnimationType::BOMB_EXPLODE_ANIMATION:
-      return 8;
+    // case AnimationType::BOMB_EXPLODE_ANIMATION:
+    //   return 8;
     case AnimationType::NO_ANIMATION:
       return 0;
   }
@@ -45,8 +45,8 @@ bool GameDisplayAnimation::renderFrame(byte frame, byte row, byte col) {
     case AnimationType::STARTUP_ANIMATION:
       return GameDisplayAnimation::renderStartupAnimation(frame, row, col);
 
-    case AnimationType::BOMB_EXPLODE_ANIMATION:
-      return GameDisplayAnimation::renderBombExplodeAnimation(frame, row, col);
+    // case AnimationType::BOMB_EXPLODE_ANIMATION:
+    //   return GameDisplayAnimation::renderBombExplodeAnimation(frame, row, col);
     
     case AnimationType::NO_ANIMATION:
       return false;
@@ -64,19 +64,19 @@ bool GameDisplayAnimation::renderStartupAnimation(byte frame, byte row, byte col
   return false;
 }
 
-bool GameDisplayAnimation::renderBombExplodeAnimation(byte frame, byte row, byte col) {
-  Position bombPos = game.getBombPosition() - game.getViewportOffset();
-  if (row != bombPos.getY() && col != bombPos.getX()) {
-    return game.getCellType(Position{col, row} + game.getViewportOffset()) != CellType::EMPTY;
-  }
+// bool GameDisplayAnimation::renderBombExplodeAnimation(byte frame, byte row, byte col) {
+//   Position bombPos = game.getBombPosition() - game.getViewportOffset();
+//   if (row != bombPos.getY() && col != bombPos.getX()) {
+//     return game.getCellType(Position{col, row} + game.getViewportOffset()) != CellType::EMPTY;
+//   }
 
-  if (row == bombPos.getY()) {
-    return col <= bombPos.getX() + frame && col >= bombPos.getX() - frame;
-  }
+//   if (row == bombPos.getY()) {
+//     return col <= bombPos.getX() + frame && col >= bombPos.getX() - frame;
+//   }
 
-  if (col == bombPos.getX()) {
-    return row <= bombPos.getY() + frame && row >= bombPos.getY() - frame;
-  }
+//   if (col == bombPos.getX()) {
+//     return row <= bombPos.getY() + frame && row >= bombPos.getY() - frame;
+//   }
 
-  return false;
-}
+//   return false;
+// }

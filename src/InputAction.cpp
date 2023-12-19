@@ -1,6 +1,7 @@
 #include "InputAction.h"
 #include "context.h"
 #include "resources/matrixImages.h"
+#include "resources/displayScreens.h"
 
 InputAction::InputAction(InputActionType _type): type{(byte)_type} {}
 
@@ -23,6 +24,12 @@ void InputAction::setupInput() {
 
     case InputActionType::HIGHSCORE_NAME:
       return inputManager.setupTextInput("Leaderboard name", leaderboardNameSize);
+
+    case InputActionType::ABOUT_SCREENS:
+      return inputManager.setupSelectInput(nullptr, aboutScreensSize);
+
+    case InputActionType::HELP_SCREENS:
+      return inputManager.setupSelectInput(nullptr, helpScreensSize);
   }
 }
 
@@ -45,6 +52,12 @@ void InputAction::preview(const InputState &state) {
 
     case InputActionType::HIGHSCORE_NAME:
       return;
+
+    case InputActionType::ABOUT_SCREENS:
+      return aboutPreview(state.selectInput.getCurrentOption());
+
+    case InputActionType::HELP_SCREENS:
+      return helpPreview(state.selectInput.getCurrentOption());
   }
 }
 
@@ -66,6 +79,8 @@ void InputAction::action(const InputState &state) {
       return highscoreNameAction(state.textInput.getInput());
 
     case InputActionType::LEADERBOARD_VIEW:
+    case InputActionType::ABOUT_SCREENS:
+    case InputActionType::HELP_SCREENS:
       return;
   }
 }
@@ -82,6 +97,8 @@ bool InputAction::inputReturn(const InputState &state) {
     case InputActionType::MATRIX_BRIGHTNESS_SETTING:
     case InputActionType::SOUND_SETTING:
     case InputActionType::HIGHSCORE_NAME:
+    case InputActionType::ABOUT_SCREENS:
+    case InputActionType::HELP_SCREENS:
       return true;
   }
 
@@ -135,4 +152,22 @@ bool InputAction::leaderboardClose(byte option) {
 
 void InputAction::highscoreNameAction(const char* input) {
   leaderboardManager.setName(input);
+}
+
+void InputAction::aboutPreview(byte option) {
+  statusDisp.printScreen(aboutScreens[option]);
+}
+
+void InputAction::helpPreview(byte option) {
+  char bufLine1[16];
+  char bufLine2[16];
+  strcpy_P(bufLine1, (char *)pgm_read_ptr(&(helpScreens[option][0])));
+  strcpy_P(bufLine2, (char *)pgm_read_ptr(&(helpScreens[option][1])));
+
+  Screen helpScreen = {
+    bufLine1,
+    bufLine2
+  };
+
+  statusDisp.printScreen(helpScreen);
 }

@@ -6,7 +6,7 @@
 enum class AnimationType {
   NO_ANIMATION,
   STARTUP_ANIMATION,
-  BOMB_EXPLODE_ANIMATION
+  // BOMB_EXPLODE_ANIMATION
 };
 
 class GameDisplay;

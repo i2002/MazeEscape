@@ -1,6 +1,7 @@
 
 #include "src/config.h"
 #include "src/context.h"
+#include "src/utils.h"
 #include "src/resources/matrixImages.h"
 #include "src/resources/displayScreens.h"
 #include "src/resources/menuDefinitions.h"
@@ -33,7 +34,7 @@ void setup() {
   gameDisp.setup();
   statusDisp.setup();
 
-  appStateManager.changeState(AppState::STARTUP);  
+  appStateManager.changeState(AppState::STARTUP);
 }
 
 void loop() {
@@ -70,6 +71,11 @@ inline void uiNavigationRuntime() {
   }
 }
 
+unsigned long lastBulletUpdate = 0;
+unsigned long lastEnemyAction = 0;
+const int bulletUpdateInterval = 50;
+const int enemyActionInterval = 1000;
+
 inline void gameRuntime() {
   if (joystick.processMovement()) {
     if (game.playerMove(joystick.getState())) {
@@ -78,15 +84,23 @@ inline void gameRuntime() {
   }
 
   if (triggerBtn.buttonPressed()) {
-    game.placeBomb(millis());
-    gameDisp.resetBombBlink();
+    game.fireBullet();
+    gameDisp.resetPlayerBlink();
+    lastBulletUpdate = millis();
   }
 
-  bool exploded = game.bombTick(millis());
-  if (exploded && game.getState() != GameState::RUNNING) {
-    appStateManager.changeState(AppState::SCORE_REVIEW);
-    return;
+  if (delayedExec(lastBulletUpdate, bulletUpdateInterval)) {
+    game.updateBullets();
+  }
+
+  if (delayedExec(lastEnemyAction, enemyActionInterval)) {
+    game.processEnemyActions();
+    // gameDisp.resetEnemyBlink();
   }
 
   gameDisp.renderGame();
+
+  if (game.getState() != GameState::RUNNING) {
+    appStateManager.changeState(AppState::SCORE_REVIEW);
+  }
 }

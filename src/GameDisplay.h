@@ -17,16 +17,17 @@ typedef uint64_t MatrixImage;
 class GameDisplay {
   // Display configuration
   static const unsigned long playerBlinkInterval = 1000;
-  static const unsigned long bombBlinkInterval = 200;
+  static const unsigned long enemyBlinkInterval = 200;
 
   // LED control state
   LedControl lc;
 
   // Game LED blink states
   bool playerBlinkState = false;
-  bool bombBlinkState = false;
+  bool enemyBlinkState = false;
+  bool finishBlinkState = false;
   unsigned long lastPlayerBlink = 0;
-  unsigned long lastBombBlink = 0;
+  unsigned long lastEnemyBlink = 0;
   unsigned long animationRender = 0;
 
   // Animations
@@ -43,7 +44,7 @@ public:
    * @param clockPin the clock pin for LED control
    * @param loadPin the load pin for LED control
    */
-  GameDisplay() : lc{dinPin, clockPin, loadPin, 1} {}
+  GameDisplay();
 
   /**
    * @brief Initialize LED display.
@@ -95,7 +96,7 @@ public:
    *
    * @return true if LED on, false otherwise
    */
-  bool gameCellState(int row, int col);
+  bool gameCellState(char row, char col);
 
   /**
    * @brief Reset the player blink state.
@@ -105,7 +106,7 @@ public:
   /**
    * @brief Reset the bomb blink state.
    */
-  void resetBombBlink();
+  void resetEnemyBlink();
 
 private:
   /**
@@ -115,7 +116,7 @@ private:
    * @param col column number
    * @param state LED state (on / off)
    */
-  void setLed(int row, int col, bool state);
+  void setLed(char row, char col, bool state);
 };
 
 #endif // GAME_DISPLAY_H

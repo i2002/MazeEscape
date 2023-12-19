@@ -1,5 +1,6 @@
 #include "SelectInput.h"
 #include "context.h"
+#include "resources/sounds.h"
 
 SelectInput::SelectInput(const char *title, byte _optionsSize, byte initialSelection) {
   optionsSize = _optionsSize;
@@ -15,6 +16,7 @@ bool SelectInput::nextOption() {
   }
 
   currentOption++;
+  soundManager.playSound(SoundType::MENU_NAVIGATION_NEXT);
   printCurrentOption();
   return true;
 }
@@ -25,6 +27,7 @@ bool SelectInput::prevOption() {
   }
 
   currentOption--;
+  soundManager.playSound(SoundType::MENU_NAVIGATION_PREV);
   printCurrentOption();
   return true;
 }
