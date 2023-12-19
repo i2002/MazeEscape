@@ -21,16 +21,11 @@ void AppStateManager::changeState(AppState newState) {
       statusDisp.printScreen(welcomeScreen);
       gameDisp.displayAnimation(AnimationType::STARTUP_ANIMATION);
       soundManager.playSound(SoundType::STARTUP_SOUND);
-      setTransitionTimer(2000);
+      setTransitionTimer(startupDelay);
       break;
     case AppState::MAIN_NAVIGATION:
       menuManager.resetMenu(getMenu(AppMenu::MAIN_MENU));
       setInputContext(AppInputContext::UI_INPUT);
-      break;
-
-    case AppState::ABOUT:
-      // statusDisp.printScreen(aboutScreen);
-      // setInputContext(AppInputContext::SKIP_INPUT);
       break;
 
     case AppState::GAME_START:
@@ -38,11 +33,12 @@ void AppStateManager::changeState(AppState newState) {
       break;
 
     case AppState::LEVEL_START:
-      setTransitionTimer(3500);
+      setTransitionTimer(GameDisplay::matrixSize * GameDisplay::matrixSize * GameDisplayAnimation::animationInterval + levelStartupDelay);
       break;
 
     case AppState::GAME_RUNNING:
       setInputContext(AppInputContext::GAME_INPUT);
+      statusDisp.setupGameInfo(game.getLevel(), game.getLives(), game.getPoints());
       break;
 
     case AppState::SCORE_REVIEW:
@@ -83,10 +79,6 @@ void AppStateManager::stateTransition() {
 
     case AppState::MAIN_NAVIGATION:
       menuManager.showMenu();
-      break;
-
-    case AppState::ABOUT:
-      newState = AppState::MAIN_NAVIGATION;
       break;
 
     case AppState::GAME_START:

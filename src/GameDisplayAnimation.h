@@ -13,6 +13,10 @@ enum class AnimationType {
 class GameDisplay;
 
 class GameDisplayAnimation {
+public:
+  static const unsigned int animationInterval = 50;
+
+private:
   byte type;
   int currentFrame = 0;
   unsigned long lastRender = 0;

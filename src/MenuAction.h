@@ -11,7 +11,6 @@ enum class MenuActionType {
   START_GAME,
   UI_INPUT,
   RESET_LEADERBOARD,
-  ABOUT,
   NO_ACTION
 };
 

@@ -12,7 +12,7 @@ void GameDisplayAnimation::render(GameDisplay &disp) {
     return;
   }
 
-  if (delayedExec(lastRender, 50)) {
+  if (delayedExec(lastRender, animationInterval)) {
     for (byte row = 0; row < GameDisplay::matrixSize; row++) {
       for (byte col = 0; col < GameDisplay::matrixSize; col++) {
         disp.setLed(row, col, renderFrame(currentFrame, row, col));
@@ -34,7 +34,7 @@ int GameDisplayAnimation::getLength() {
     // case AnimationType::BOMB_EXPLODE_ANIMATION:
     //   return 8;
     case AnimationType::START_LEVEL_ANIMATION:
-      return GameDisplay::matrixSize * GameDisplay::matrixSize;
+      return GameDisplay::matrixSize * GameDisplay::matrixSize + AppStateManager::levelStartupDelay / animationInterval;
     case AnimationType::NO_ANIMATION:
       return 0;
   }
@@ -93,8 +93,22 @@ bool GameDisplayAnimation::renderLevelStartAnimation(byte frame, byte row, byte 
 
     if ((row > rows) || (row == rows && col >= cols)) {
       return true;
-    } else {
-      return game.getCellType(Position{(char)col, (char)row} + game.getViewportOffset()) != CellType::EMPTY;
     }
   }
+
+  CellType type = game.getCellType(Position{(char)col, (char)row} + game.getViewportOffset());
+
+  if (type == CellType::EMPTY) {
+    return false;
+  }
+
+  if (type == CellType::PLAYER) {
+    return frame / (GameDisplay::playerBlinkInterval / animationInterval) % 2;
+  }
+
+  if (type == CellType::ENEMY) {
+    return frame / (GameDisplay::enemyBlinkInterval / animationInterval) % 4 != 0;
+  }
+  
+  return true;
 }

@@ -46,6 +46,7 @@ private:
   static constexpr float maxWalls = 0.6;
   static constexpr int minFinishDistance = 10;
   static constexpr int minPlayerDistance = 2;
+  static constexpr int minEnemyDistance = 5;
   static constexpr int randomPathChance = 20;
   // static constexpr int movementChance = 80;
   // static constexpr int fireChance = 20;
@@ -135,11 +136,25 @@ public:
   GameState getState();
 
   /**
-   * @brief Get the current game points
+   * @brief Get the current game points.
    * 
-   * @return int 
+   * @return byte 
    */
-  int getPoints();
+  byte getPoints();
+
+  /**
+   * @brief Get current game level.
+   * 
+   * @return byte
+   */
+  byte getLevel();
+
+  /**
+   * @brief Get current game lives.
+   * 
+   * @return byte
+   */
+  byte getLives();
 
 private:
   /**

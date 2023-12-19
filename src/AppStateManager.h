@@ -6,7 +6,6 @@ enum class AppState {
   UNCHANGED,
   STARTUP,
   MAIN_NAVIGATION,
-  ABOUT,
   GAME_START,
   LEVEL_START,
   GAME_RUNNING,
@@ -23,6 +22,11 @@ enum class AppInputContext {
 };
 
 class AppStateManager {
+public:
+  static const int startupDelay = 2000;
+  static const int levelStartupDelay = 3000;
+
+private:
   byte currentState = (byte) AppState::UNCHANGED;
   byte inputContext = (byte) AppInputContext::NONE;
   unsigned long transitionTimer = 0;

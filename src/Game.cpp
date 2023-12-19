@@ -5,17 +5,17 @@
 
 
 const Level Game::levels[maxLevels] = {
-  { 5, 50, 20 },
-  { 10, 60, 25 },
-  { 15, 70, 40 }
+  { 5, 50, 15 },
+  { 7, 60, 25 },
+  { 10, 65, 40 }
 };
 
 void Game::startGame() {
+  level = 0;
   points = 0;
   lives = 3;
-  level = 0;
   gameState = GameState::RUNNING;
-  statusDisp.setupGameInfo();
+  statusDisp.setupGameInfo(level, lives, points);
   levelStartup();
 }
 
@@ -111,8 +111,16 @@ GameState Game::getState() {
   return gameState;
 }
 
-int Game::getPoints() {
+byte Game::getPoints() {
   return points;
+}
+
+byte Game::getLevel() {
+  return level;
+}
+
+byte Game::getLives() {
+  return lives;
 }
 
 void Game::generateMatrix() {
@@ -189,9 +197,24 @@ void Game::generateMatrix() {
   Position enemyPos;
   for (byte i = 0; i < levels[level].enemyCount; i++) {
     enemyPos = Position::randomPos();
+
+    // invalid position
     if (getCellType(enemyPos) != CellType::EMPTY) {
       i--;
       continue;
+    }
+
+    // distance enemies
+    bool distanceNotGood = false;
+    for (byte j = 0; j < i; j++) {
+      if (enemyPos.distance(enemies[j].getPos()) < minEnemyDistance) {
+        distanceNotGood = true;
+      }
+    }
+
+    if (distanceNotGood) {
+      i--;
+      continue;;
     }
 
     // do not place enemies around player
@@ -199,7 +222,6 @@ void Game::generateMatrix() {
       i--;
       continue;
     }
-
 
     enemies[i] = Enemy{enemyPos, true};
     setCellType(enemyPos, CellType::ENEMY);
@@ -252,8 +274,11 @@ void Game::levelUp() {
 
 void Game::levelStartup() {
   generateMatrix();
+  lives = 3;
   soundManager.playSound(SoundType::LEVEL_START);
-  statusDisp.updateLevel(level + 1);
+
+  const Screen level = {"Prepare level"};
+  statusDisp.printScreen(level);
   gameDisp.displayAnimation(AnimationType::START_LEVEL_ANIMATION);
   appStateManager.changeState(AppState::LEVEL_START);
 }

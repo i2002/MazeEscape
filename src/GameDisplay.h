@@ -15,10 +15,12 @@ typedef uint64_t MatrixImage;
  * @brief Control the LED matrix display.
  */
 class GameDisplay {
+public:
   // Display configuration
   static const unsigned long playerBlinkInterval = 1000;
   static const unsigned long enemyBlinkInterval = 200;
 
+private:
   // LED control state
   LedControl lc;
 

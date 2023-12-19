@@ -168,16 +168,16 @@ void StatusDisplay::printMenuArrow(bool canPrev, bool canNext) {
   }
 }
 
-void StatusDisplay::setupGameInfo() {
+void StatusDisplay::setupGameInfo(byte level, byte lives, byte points) {
   resetDisplay();
 
-  lcd.print("Lv ");
+  lcd.print(F("Lv "));
   lcd.setCursor(0, 1);
-  lcd.print("Points:");
+  lcd.print(F("Points:"));
 
-  updateLevel(1);
-  updatePoints(0);
-  updateLives(3);
+  updateLevel(level + 1);
+  updatePoints(points);
+  updateLives(lives);
 }
 
 void StatusDisplay::updatePoints(byte points) {
@@ -194,7 +194,7 @@ void StatusDisplay::updateLives(byte lives) {
   printBlank(13, 16, 0);
   lcd.setCursor(13, 0);
   for (int i = 0; i < lives; i++) {
-    lcd.print("#");
+    lcd.print('#');
   }
 }
 

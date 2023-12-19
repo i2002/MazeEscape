@@ -20,8 +20,6 @@ void MenuAction::handleMenuAction() const {
       return uiInputHandler();
     case MenuActionType::RESET_LEADERBOARD:
       return leaderboardManager.resetLeaderboard();
-    case MenuActionType::ABOUT:
-      return appStateManager.changeState(AppState::ABOUT);
     case MenuActionType::NO_ACTION:
       return;
   }
