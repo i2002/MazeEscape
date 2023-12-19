@@ -33,8 +33,15 @@ void AppStateManager::changeState(AppState newState) {
       // setInputContext(AppInputContext::SKIP_INPUT);
       break;
 
-    case AppState::GAME_RUNNING:
+    case AppState::GAME_START:
       game.startGame();
+      break;
+
+    case AppState::LEVEL_START:
+      setTransitionTimer(3500);
+      break;
+
+    case AppState::GAME_RUNNING:
       setInputContext(AppInputContext::GAME_INPUT);
       break;
 
@@ -80,6 +87,14 @@ void AppStateManager::stateTransition() {
 
     case AppState::ABOUT:
       newState = AppState::MAIN_NAVIGATION;
+      break;
+
+    case AppState::GAME_START:
+      newState = AppState::GAME_START;
+      break;
+
+    case AppState::LEVEL_START:
+      newState = AppState::GAME_RUNNING;
       break;
 
     case AppState::GAME_RUNNING:

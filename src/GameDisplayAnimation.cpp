@@ -27,12 +27,14 @@ bool GameDisplayAnimation::inProgress() {
   return currentFrame < getLength();
 }
 
-byte GameDisplayAnimation::getLength() {
+int GameDisplayAnimation::getLength() {
   switch((AnimationType) type) {
     case AnimationType::STARTUP_ANIMATION:
       return 4;
     // case AnimationType::BOMB_EXPLODE_ANIMATION:
     //   return 8;
+    case AnimationType::START_LEVEL_ANIMATION:
+      return GameDisplay::matrixSize * GameDisplay::matrixSize;
     case AnimationType::NO_ANIMATION:
       return 0;
   }
@@ -43,10 +45,13 @@ byte GameDisplayAnimation::getLength() {
 bool GameDisplayAnimation::renderFrame(byte frame, byte row, byte col) {
   switch((AnimationType) type) {
     case AnimationType::STARTUP_ANIMATION:
-      return GameDisplayAnimation::renderStartupAnimation(frame, row, col);
+      return renderStartupAnimation(frame, row, col);
 
     // case AnimationType::BOMB_EXPLODE_ANIMATION:
     //   return GameDisplayAnimation::renderBombExplodeAnimation(frame, row, col);
+
+    case AnimationType::START_LEVEL_ANIMATION:
+      return renderLevelStartAnimation(frame, row, col);
     
     case AnimationType::NO_ANIMATION:
       return false;
@@ -80,3 +85,16 @@ bool GameDisplayAnimation::renderStartupAnimation(byte frame, byte row, byte col
 
 //   return false;
 // }
+
+bool GameDisplayAnimation::renderLevelStartAnimation(byte frame, byte row, byte col) {
+  if (frame < Game::matrixHeight * Game::matrixWidth) {
+    byte rows = frame / GameDisplay::matrixSize;
+    byte cols = frame % GameDisplay::matrixSize;
+
+    if ((row > rows) || (row == rows && col >= cols)) {
+      return true;
+    } else {
+      return game.getCellType(Position{(char)col, (char)row} + game.getViewportOffset()) != CellType::EMPTY;
+    }
+  }
+}

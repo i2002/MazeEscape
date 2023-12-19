@@ -37,7 +37,7 @@ void MenuAction::menuBackHandler() const {
 }
 
 void MenuAction::startGameHandler() const {
-  appStateManager.changeState(AppState::GAME_RUNNING);
+  appStateManager.changeState(AppState::GAME_START);
 }
 
 void MenuAction::uiInputHandler() const {

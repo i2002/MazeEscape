@@ -15,8 +15,8 @@ void Game::startGame() {
   lives = 3;
   level = 0;
   gameState = GameState::RUNNING;
-  generateMatrix();
   statusDisp.setupGameInfo();
+  levelStartup();
 }
 
 bool Game::playerMove(Direction dir) {
@@ -247,12 +247,15 @@ void Game::levelUp() {
     return;
   }
 
-  // TODO: level up transition
-  // TODO: display matrix but freeze positions for a while
-  soundManager.playSound(SoundType::LEVEL_START);
-  delay(2000);
-  statusDisp.updateLevel(level + 1);
+  levelStartup();
+}
+
+void Game::levelStartup() {
   generateMatrix();
+  soundManager.playSound(SoundType::LEVEL_START);
+  statusDisp.updateLevel(level + 1);
+  gameDisp.displayAnimation(AnimationType::START_LEVEL_ANIMATION);
+  appStateManager.changeState(AppState::LEVEL_START);
 }
 
 bool Game::playerCollision(Position pos) {

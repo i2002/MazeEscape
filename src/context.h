@@ -29,18 +29,4 @@ extern LeaderboardManager leaderboardManager;
 extern SoundManager soundManager;
 extern Game game;
 
-// - App state
-// enum class AppState {
-//   STARTUP,
-//   MAIN_NAVIGATION,
-//   GAME_RUNNING,
-//   SCORE_REVIEW,
-//   SET_HIGHSCORE_NAME,
-//   SAVE_HIGHSCORE,
-//   ENDED
-// };
-
-// void changeState(AppState newState);
-
-
 #endif // CONTEXT_H

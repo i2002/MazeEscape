@@ -81,11 +81,6 @@ public:
   void startGame();
 
   /**
-   * @brief Player level up.
-   */
-  void levelUp();
-
-  /**
    * @brief Move the current player position on the game map.
    * 
    * @param pos the direction of the movement
@@ -175,6 +170,16 @@ private:
    * @return false if the player hasn't yet won the game
    */
   bool checkWinCondition();
+
+  /**
+   * @brief Player level up.
+   */
+  void levelUp();
+
+  /**
+   * @brief Start level runtime.
+   */
+  void levelStartup();
 
   /**
    * @brief Compute player collision and apply all effects of that collision.
