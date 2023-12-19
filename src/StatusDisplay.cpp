@@ -168,6 +168,15 @@ void StatusDisplay::printMenuArrow(bool canPrev, bool canNext) {
   }
 }
 
+void StatusDisplay::printHighscoreMessage(byte position) {
+  resetDisplay();
+
+  lcd.print(F("Congratulations "));
+  lcd.setCursor(0, 1);
+  lcd.print(F("You are top "));
+  lcd.print(position + 1);
+}
+
 void StatusDisplay::setupGameInfo(byte level, byte lives, byte points) {
   resetDisplay();
 

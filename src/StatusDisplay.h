@@ -30,6 +30,7 @@ public:
   void printLeaderboard(byte place, byte score, const char* name);
   void printInputChar(byte cursor, char inputChar);
   void printMenuArrow(bool canPrev = true, bool canNext = true);
+  void printHighscoreMessage(byte position);
 
   void setupGameInfo(byte level, byte lives, byte points);
   void updatePoints(byte points);

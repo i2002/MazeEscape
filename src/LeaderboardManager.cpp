@@ -4,16 +4,16 @@
 #include "context.h"
 
 
-bool LeaderboardManager::isHighscore(byte points) {
+int LeaderboardManager::isHighscore(byte points) {
   HighscoreInfo highscore;
   for (int i = 0; i < leaderboardSize; i++) {
     readHighscore(i, highscore);
     if(points >= highscore.points || highscore.points == maxHighscorePoints) {
-      return true;
+      return i;
     }
   }
 
-  return false;
+  return -1;
 }
 
 const HighscoreInfo& LeaderboardManager::getHighscore(int index) {

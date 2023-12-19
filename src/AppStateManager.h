@@ -10,6 +10,7 @@ enum class AppState {
   LEVEL_START,
   GAME_RUNNING,
   SCORE_REVIEW,
+  HIGHSCORE_REVIEW,
   SAVE_HIGHSCORE,
   ENDED
 };
@@ -25,6 +26,7 @@ class AppStateManager {
 public:
   static const int startupDelay = 2000;
   static const int levelStartupDelay = 3000;
+  static const int highscoreReviewDelay = 3000;
 
 private:
   byte currentState = (byte) AppState::UNCHANGED;

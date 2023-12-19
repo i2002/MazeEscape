@@ -28,7 +28,7 @@ public:
    * @param points the number of points to check
    * @return true if the points would have a place in the leaderboard, false otherwise
    */
-  bool isHighscore(byte points);
+  int isHighscore(byte points);
 
   /**
    * @brief Get the highscore at a position in the leaderboard.

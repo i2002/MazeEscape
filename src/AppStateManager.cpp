@@ -53,6 +53,11 @@ void AppStateManager::changeState(AppState newState) {
       setInputContext(AppInputContext::SKIP_INPUT);
       break;
 
+    case AppState::HIGHSCORE_REVIEW:
+      statusDisp.printHighscoreMessage(leaderboardManager.isHighscore(game.getPoints()));
+      setTransitionTimer(highscoreReviewDelay);
+      break;
+
     case AppState::SAVE_HIGHSCORE:
       leaderboardManager.setPoints(game.getPoints());
       inputManager.setupInput(InputActionType::HIGHSCORE_NAME);
@@ -94,7 +99,11 @@ void AppStateManager::stateTransition() {
       break;
 
     case AppState::SCORE_REVIEW:
-      newState = game.getState() == GameState::WON && leaderboardManager.isHighscore(game.getPoints()) ? AppState::SAVE_HIGHSCORE : AppState::ENDED;
+      newState = game.getState() == GameState::WON && leaderboardManager.isHighscore(game.getPoints()) != -1 ? AppState::HIGHSCORE_REVIEW : AppState::ENDED;
+      break;
+
+    case AppState::HIGHSCORE_REVIEW:
+      newState = AppState::SAVE_HIGHSCORE;
       break;
 
     case AppState::SAVE_HIGHSCORE:
