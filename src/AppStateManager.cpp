@@ -45,10 +45,12 @@ void AppStateManager::changeState(AppState newState) {
       if (game.getState() == GameState::LOST) {
         gameDisp.displayImage(lostGameImage);
         statusDisp.printScreen(lostGameScreen);
+        soundManager.playSound(SoundType::GAME_LOST);
       } else {
         gameDisp.displayImage(wonGameImage);
         statusDisp.printScreen(wonGameScreen);
         statusDisp.updatePoints(game.getPoints());
+        soundManager.playSound(SoundType::GAME_WON);
       }
       setTransitionTimer(scoreReviewSkipDelay);
       break;

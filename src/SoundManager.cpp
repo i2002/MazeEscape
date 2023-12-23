@@ -17,8 +17,12 @@ bool SoundManager::getEnabled() const {
 }
 
 void SoundManager::playSound(SoundType sound) {
-  if (isPlaying() || !getEnabled()) {
+  if (!getEnabled()) {
     return;
+  }
+
+  if (isPlaying()) {
+    noTone(buzzerPin);
   }
 
   activeSound = (byte) sound;
@@ -32,7 +36,7 @@ void SoundManager::runtime() {
     return;
   }
 
-  if (delayedExec(lastTone, getActiveSound()->notes[currentTone].duration)) {
+  if (currentTone == 0 || delayedExec(lastTone, getActiveSound()->notes[currentTone - 1].duration)) {
     playTone();
   }
 }
