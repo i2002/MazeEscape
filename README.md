@@ -7,14 +7,12 @@ _Maze escape_ is a simple 8x8 matrix game in which the player has to find the ex
 The project is powered by an Atmega328P microcontroller and has a case made out of LEGO bricks.
 
 ## Task description
-The objective of the project is to create a matrix game, using as input joystick movement and button switch press and as 
-
-output a 16x2 LCD display and a 8x8 LED matrix. The project should also include user interface (user navigable menu) in order to:
+The objective of the project is to create a matrix game, using as input joystick movement and button switch press and as output a 16x2 LCD display and a 8x8 LED matrix. The project should also include user interface (user navigable menu) in order to:
 
 - start the game
 - manage game settings (LCD and matrix brightness, sounds on / off)
 - manage highscores (see highscore and reset leaderboard)
-- help and about screens
+- display help and about screens
 
 ## Game description
 
