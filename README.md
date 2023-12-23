@@ -40,7 +40,7 @@ If the player looses all lives, the game ends and the user is taken back to the 
 
 ![Project image](doc/build.jpg)
 
-Video demo: [link]()
+Video demo: [https://www.youtube.com/watch?v=QcnFX6kw_pk](https://www.youtube.com/watch?v=QcnFX6kw_pk).
 
 ## Implementation details
 
