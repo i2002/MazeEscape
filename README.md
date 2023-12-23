@@ -4,10 +4,10 @@ This repository contains the code of the matrix project for the Introduction to 
 
 _Maze escape_ is a simple 8x8 matrix game in which the player has to find the exit of the maze while keeping out of enemies.
 
-The project is powered by an Atmega328P microcontroller and has a case made out of LEGO bricks.
+The project is powered by an _Atmega328P_ microcontroller and has a case made out of LEGO bricks.
 
 ## Task description
-The objective of the project is to create a matrix game, using as input joystick movement and button switch press and as output a 16x2 LCD display and a 8x8 LED matrix. The project should also include user interface (user navigable menu) in order to:
+The objective of the project is to create a matrix game, using as input joystick movement and button switch press and as output a _16x2 LCD display_ and a _8x8 LED matrix_. The project should also include user interface (user navigable menu) in order to:
 
 - start the game
 - manage game settings (LCD and matrix brightness, sounds on / off)
@@ -16,15 +16,15 @@ The objective of the project is to create a matrix game, using as input joystick
 
 ## Game description
 
-The objective of the game is to reach the exit of the maze. 
+The objective of the game is to reach the exit of the maze.
 
-Through the map there are randomly placed enemies who can move and shoot at you. If they touch or shoot you, you loose a life. At the start of the game you have 3 lives.
+Through the map there are randomly placed enemies who can move and shoot at the player. If they touch or shoot the player, they loose a life. The player starts each level with 3 lives.
 
-You can also shoot enemies by pressing the action button. The bullet will be oriented in the last direction you moved. 
+The player can also shoot enemies by pressing the action button. The bullet will be oriented in the last movement direction.
 
-You gain points, based on current level, by shooting down enemies and reaching the exit of the maze (bonus points if more lives remaining).
+The player gains gain points, based on current level, by shooting down enemies and reaching the exit of the maze (bonus points if more lives remaining).
 
-Upon reaching the maze exit, you get to the next level. Higher levels have more enemies that behave more aggresivelly.
+Upon reaching the maze exit, the player gets to the next level. Higher levels have more enemies that behave more aggresivelly.
 
 ## How to play
 
@@ -59,11 +59,11 @@ The project uses the following electronic components:
 - various capacitors (100nF and 10 uF for ground filtering, 100nF for microcontroller reset debounce, 2 22pF for crystal oscilator)
 - 16MHz crystal oscilator (high precision oscilator for microcontroller)
 - connection wires
-- connection sockers for microcontroller and LED matrix
+- connection sockets for microcontroller and LED matrix
 
 The board is enclosed in a case made with LEGO bricks. This improves the build durability and aesthetic.
 
-The microcontroller has the Arduino bootloader burned (using the ICSP pins and an Arduino board as ISP programmer, using [this guide](https://docs.arduino.cc/built-in-examples/arduino-isp/ArduinoISP)).
+The microcontroller has the Arduino bootloader burned (using the ICSP pins and an Arduino board as ISP programmer, as per [this guide](https://docs.arduino.cc/built-in-examples/arduino-isp/ArduinoISP)).
 
 On the side of the case there are 3 pins that can be used for serial programming, using an USB to serial chip (such as [FT232](https://ftdichip.com/products/ft232rl/)).
 
@@ -79,12 +79,12 @@ These are the resources that helped me design and program the project:
   - [https://omerk.github.io/lcdchargen/](https://omerk.github.io/lcdchargen/)
   - [https://xantorohara.github.io/led-matrix-editor](https://xantorohara.github.io/led-matrix-editor/)
 
-- Build for using Atmega328P sepparated from arduino board
+- Build for using Atmega328P without Arduino board
   - [https://www.electronicshub.org/make-your-own-arduino-board/](https://www.electronicshub.org/make-your-own-arduino-board/)
   - [https://docs.arduino.cc/hacking/hardware/building-an-arduino-on-a-breadboard](https://docs.arduino.cc/hacking/hardware/building-an-arduino-on-a-breadboard)
   - [https://www.instructables.com/DIY-Arduino-UNO-How-to-Make-Your-Own-Arduino-Uno-B/](https://www.instructables.com/DIY-Arduino-UNO-How-to-Make-Your-Own-Arduino-Uno-B/)
 
-- Burning Arduino bootloadere on Atmega328P microcontroller
+- Burning Arduino bootloader on Atmega328P microcontroller
   - [https://www.instructables.com/Burning-Bootloaders-Into-AVRs-Using-Arduino/](https://www.instructables.com/Burning-Bootloaders-Into-AVRs-Using-Arduino/)
   - [https://docs.arduino.cc/built-in-examples/arduino-isp/ArduinoISP](https://docs.arduino.cc/built-in-examples/arduino-isp/ArduinoISP)
   
