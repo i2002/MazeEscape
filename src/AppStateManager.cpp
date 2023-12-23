@@ -38,7 +38,7 @@ void AppStateManager::changeState(AppState newState) {
 
     case AppState::GAME_RUNNING:
       setInputContext(AppInputContext::GAME_INPUT);
-      statusDisp.setupGameInfo(game.getLevel(), game.getLives(), game.getPoints());
+      statusDisp.setupGameInfo(game.getLevel(), game.getLives(), game.getPoints(), game.getEnemies());
       break;
 
     case AppState::SCORE_REVIEW:

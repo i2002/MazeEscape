@@ -71,7 +71,7 @@ byte heart[8] = {
 
 
 void StatusDisplay::setup() {
-  lcd.begin(16, 2);
+  lcd.begin(dispCols, dispRows);
   setBrightness(getBrightness());
 
   lcd.createChar(UP_DOWN_ARROW, upDownArrow);
@@ -83,8 +83,7 @@ void StatusDisplay::setup() {
 }
 
 void StatusDisplay::setBrightness(byte level, bool save) {
-  const byte brightnessStep = 255 / RangeInput::maxSteps;
-  analogWrite(pinA, level * brightnessStep);
+  analogWrite(pinA, map(level, 0, RangeInput::maxSteps, 0, maxBrightness));
 
   if (save) {
     EEPROM.put(lcdBrightnessStoreIndex, level);
@@ -99,7 +98,7 @@ byte StatusDisplay::getBrightness() {
 
 void StatusDisplay::printTitle(const char *name) {
   resetDisplay();
-  byte start = (16 - strlen(name)) / 2;
+  byte start = (dispCols - strlen(name)) / 2;
   lcd.setCursor(start, 0);
   lcd.print(name);
 }
@@ -121,7 +120,7 @@ void StatusDisplay::printRange(int step) {
     pos += lcd.write(0b11111111);
   }
 
-  printBlank(pos, 15);
+  printBlank(pos, dispCols - 1);
   lcd.write(RIGHT_ARROW);
 }
 
@@ -156,7 +155,7 @@ void StatusDisplay::printLeaderboard(byte place, byte score, const char* name) {
 
   // highscore points
   pos += lcd.print(score);
-  printBlank(pos, 15);
+  printBlank(pos, dispCols - 1);
 }
 
 void StatusDisplay::printInputChar(byte cursor, char inputChar) {
@@ -168,7 +167,7 @@ void StatusDisplay::printInputChar(byte cursor, char inputChar) {
 }
 
 void StatusDisplay::printMenuArrow(bool canPrev, bool canNext) {
-  lcd.setCursor(15, 1);
+  lcd.setCursor(dispCols - 1, 1);
   if (canPrev && canNext) {
     lcd.write(UP_DOWN_ARROW);
   } else if (canPrev) {
@@ -189,34 +188,41 @@ void StatusDisplay::printHighscoreMessage(byte position) {
   lcd.print(position + 1);
 }
 
-void StatusDisplay::setupGameInfo(byte level, byte lives, byte points) {
+void StatusDisplay::setupGameInfo(byte level, byte lives, byte points, byte enemies) {
   resetDisplay();
-
-  lcd.print(F("Lv "));
-  lcd.setCursor(0, 1);
-  lcd.print(F("Points:"));
-
   updateLevel(level + 1);
-  updatePoints(points);
   updateLives(lives);
-}
-
-void StatusDisplay::updatePoints(byte points) {
-  lcd.setCursor(8, 1);
-  lcd.print(points);
+  updatePoints(points);
+  updateEnemies(enemies);
 }
 
 void StatusDisplay::updateLevel(byte level) {
-  lcd.setCursor(3, 0);
+  lcd.setCursor(levelCol, levelRow);
+  lcd.print(F("Lv "));
   lcd.print(level);
 }
 
 void StatusDisplay::updateLives(byte lives) {
-  printBlank(13, 16, 0);
-  lcd.setCursor(13, 0);
+  byte pos = livesCol;
+  lcd.setCursor(livesCol, livesRow);
   for (int i = 0; i < lives; i++) {
-    lcd.write(HEART);
+    pos += lcd.write(HEART);
   }
+  printBlank(pos, dispCols, livesRow);
+}
+
+void StatusDisplay::updatePoints(byte points) {
+  lcd.setCursor(pointsCol, pointsRow);
+  lcd.print(F("Pts: "));
+  lcd.print(points);
+}
+
+void StatusDisplay::updateEnemies(byte enemies) {
+  lcd.setCursor(enemiesCol, enemiesRow);
+  byte pos = enemiesCol;
+  pos += lcd.print(F("En: "));
+  pos += lcd.print(enemies);
+  printBlank(pos, dispCols, enemiesRow);
 }
 
 void StatusDisplay::resetDisplay() {

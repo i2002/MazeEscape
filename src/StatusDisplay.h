@@ -16,6 +16,25 @@ const byte HEART = 5;
 typedef const char* (Screen)[2];
 
 class StatusDisplay {
+public:
+  static const int dispCols = 16;
+  static const int dispRows = 2;
+
+private:
+  static const int maxBrightness = 255;
+
+  static const int livesCol = 13;
+  static const int livesRow = 0;
+
+  static const int levelCol = 0;
+  static const int levelRow = 0;
+
+  static const int pointsCol = 0;
+  static const int pointsRow = 1;
+
+  static const int enemiesCol = 9;
+  static const int enemiesRow = 1;
+
   LiquidCrystal lcd;
 
 public:
@@ -33,10 +52,11 @@ public:
   void printMenuArrow(bool canPrev = true, bool canNext = true);
   void printHighscoreMessage(byte position);
 
-  void setupGameInfo(byte level, byte lives, byte points);
-  void updatePoints(byte points);
+  void setupGameInfo(byte level, byte lives, byte points, byte enemies);
   void updateLevel(byte level);
   void updateLives(byte lives);
+  void updatePoints(byte points);
+  void updateEnemies(byte enemies);
 
 private:
   void resetDisplay();

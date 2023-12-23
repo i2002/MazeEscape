@@ -156,6 +156,13 @@ public:
    */
   byte getLives();
 
+  /**
+   * @brief Get current game alive enemies
+   * 
+   * @return byte
+   */
+  byte getEnemies();
+
 private:
   /**
    * @brief Set the tyep of a game matrix cell.

@@ -122,6 +122,17 @@ byte Game::getLives() {
   return lives;
 }
 
+byte Game::getEnemies() {
+  byte count = 0;
+  for (int i = 0; i < levels[level].enemyCount; i++) {
+    if (enemies[i].isAlive()) {
+      count++;
+    }
+  }
+
+  return count;
+}
+
 void Game::generateMatrix() {
   // reset map
   for (char i = 0; i < matrixHeight; i++) {
@@ -415,6 +426,7 @@ void Game::enemyHit(Position pos) {
       enemies[i].setAlive(false);
       points += enemyKillPoints * (level + 1);
       statusDisp.updatePoints(points);
+      statusDisp.updateEnemies(getEnemies());
       soundManager.playSound(SoundType::ENEMY_HIT);
     }
   }
