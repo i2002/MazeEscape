@@ -13,11 +13,11 @@ public:
 
   bool prevOption();
 
+  void preview();
+
   byte getCurrentOption() const;
 
 private:
-  void printCurrentOption();
-
   bool canNext();
 
   bool canPrev();

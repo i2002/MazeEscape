@@ -3,9 +3,8 @@
 
 RangeInput::RangeInput(const char *title, byte initialValue) {
   statusDisp.printTitle(title);
-  statusDisp.printRange(initialValue);
 
-  value = initialValue < maxSteps ? initialValue : 0;
+  value = initialValue <= maxSteps ? initialValue : 0;
 }
 
 bool RangeInput::stepsIncrement() {
@@ -14,7 +13,6 @@ bool RangeInput::stepsIncrement() {
   }
 
   value++;
-  statusDisp.printRange(value);
   return true;
 }
 
@@ -24,8 +22,11 @@ bool RangeInput::stepsDecrement() {
   }
 
   value--;
-  statusDisp.printRange(value);
   return true;
+}
+
+void RangeInput::preview() {
+  statusDisp.printRange(value);
 }
 
 byte RangeInput::getValue() const {

@@ -34,18 +34,21 @@ void TextInput::prevChar() {
   writeChar(getPrevChar());
 }
 
+void TextInput::preview() {
+  statusDisp.printInputChar(cursor, inputBuf[cursor]);
+}
+
 const char* TextInput::getInput() const {
   return inputBuf;
 }
 
 void TextInput::setCursor(byte _cursor) {
   cursor = _cursor;
-  statusDisp.printInputChar(cursor, inputBuf[cursor]);
 }
 
 void TextInput::writeChar(char newChar) {
   inputBuf[cursor] = newChar;
-  statusDisp.printInputChar(cursor, inputBuf[cursor]);
+  
 }
 
 char TextInput::getNextChar() {

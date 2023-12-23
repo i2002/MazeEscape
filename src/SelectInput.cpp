@@ -7,7 +7,6 @@ SelectInput::SelectInput(const char *title, byte _optionsSize, byte initialSelec
   currentOption = initialSelection < optionsSize ? initialSelection : 0;
 
   statusDisp.printTitle(title);
-  printCurrentOption();
 }
 
 bool SelectInput::nextOption() {
@@ -17,7 +16,6 @@ bool SelectInput::nextOption() {
 
   currentOption++;
   soundManager.playSound(SoundType::MENU_NAVIGATION_NEXT);
-  printCurrentOption();
   return true;
 }
 
@@ -28,16 +26,15 @@ bool SelectInput::prevOption() {
 
   currentOption--;
   soundManager.playSound(SoundType::MENU_NAVIGATION_PREV);
-  printCurrentOption();
   return true;
+}
+
+void SelectInput::preview() {
+  statusDisp.printMenuArrow(canPrev(), canNext());
 }
 
 byte SelectInput::getCurrentOption() const {
   return currentOption;
-}
-
-void SelectInput::printCurrentOption() {
-  statusDisp.printMenuArrow(canPrev(), canNext());
 }
 
 bool SelectInput::canNext() {

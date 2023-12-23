@@ -45,6 +45,8 @@ private:
 
   void setupTextInput(const char* title, byte maxLen, const char* initialValue = nullptr);
 
+  void previewInputState();
+
   bool processSelectInputMovement(Direction dir);
 
   bool processRangeInputMovement(Direction dir);

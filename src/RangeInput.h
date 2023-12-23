@@ -14,6 +14,8 @@ public:
 
   bool stepsDecrement();
 
+  void preview();
+
   byte getValue() const;
 };
 

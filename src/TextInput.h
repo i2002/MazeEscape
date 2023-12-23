@@ -18,6 +18,8 @@ public:
   
   void prevChar();
 
+  void preview();
+
   const char* getInput() const;
 
 private:

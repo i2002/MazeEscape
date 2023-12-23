@@ -8,6 +8,7 @@ void InputManager::setupInput(InputActionType type) {
   actions = InputAction(type);
   actions.setupInput();
   actions.preview(state);
+  previewInputState();
 }
 
 void InputManager::processMovement(Direction dir) {
@@ -28,6 +29,7 @@ void InputManager::processMovement(Direction dir) {
 
   if (stateChanged) {
     actions.preview(state);
+    previewInputState();
   }
 }
 
@@ -54,6 +56,19 @@ void InputManager::setupRangeInput(const char* title, byte initialValue) {
 void InputManager::setupTextInput(const char* title, byte maxLen, const char* initialValue) {
   new (&state.textInput) TextInput{title, maxLen, initialValue};
   inputType = (byte) InputType::TEXT_INPUT;
+}
+
+void InputManager::previewInputState() {
+  switch((InputType) inputType) {
+    case InputType::RANGE_INPUT:
+      return state.rangeInput.preview();
+
+    case InputType::SELECT_INPUT:
+      return state.selectInput.preview();
+
+    case InputType::TEXT_INPUT:
+      return state.textInput.preview();
+  }
 }
 
 bool InputManager::processSelectInputMovement(Direction dir) {
