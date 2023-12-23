@@ -14,13 +14,22 @@ const Screen lostGameScreen = {
 
 const Screen wonGameScreen = {
   "You won :)",
-  "Points:        >"
+  "               >"
 };
 
-const int aboutScreensSize = 2;
-const Screen aboutScreens[] = {
-  {"- Maze Escape -", " Tudor Butufei "},
-  {"- Github user -", "i2002"}
+const int aboutScreensSize = 3;
+
+const char aboutScreen1Line1[] PROGMEM = "- Maze Escape -";
+const char aboutScreen1Line2[] PROGMEM = "  version 1.1  ";
+const char aboutScreen2Line1[] PROGMEM = "-    Author   -";
+const char aboutScreen2Line2[] PROGMEM = " Tudor Butufei ";
+const char aboutScreen3Line1[] PROGMEM = "- Github user -";
+const char aboutScreen3Line2[] PROGMEM = "     i2002     ";
+
+const Screen aboutScreens[aboutScreensSize] PROGMEM = {
+  {aboutScreen1Line1, aboutScreen1Line2},
+  {aboutScreen2Line1, aboutScreen2Line2},
+  {aboutScreen3Line1, aboutScreen3Line2}
 };
 
 const int helpScreensSize = 7;

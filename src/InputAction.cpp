@@ -155,12 +155,22 @@ void InputAction::highscoreNameAction(const char* input) {
 }
 
 void InputAction::aboutPreview(byte option) {
-  statusDisp.printScreen(aboutScreens[option]);
+  char bufLine1[StatusDisplay::dispCols];
+  char bufLine2[StatusDisplay::dispCols];
+  strcpy_P(bufLine1, (char *)pgm_read_ptr(&(aboutScreens[option][0])));
+  strcpy_P(bufLine2, (char *)pgm_read_ptr(&(aboutScreens[option][1])));
+
+  Screen aboutScreen = {
+    bufLine1,
+    bufLine2
+  };
+
+  statusDisp.printScreen(aboutScreen);
 }
 
 void InputAction::helpPreview(byte option) {
-  char bufLine1[16];
-  char bufLine2[16];
+  char bufLine1[StatusDisplay::dispCols];
+  char bufLine2[StatusDisplay::dispCols];
   strcpy_P(bufLine1, (char *)pgm_read_ptr(&(helpScreens[option][0])));
   strcpy_P(bufLine2, (char *)pgm_read_ptr(&(helpScreens[option][1])));
 
