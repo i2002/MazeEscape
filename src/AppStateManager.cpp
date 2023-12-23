@@ -50,6 +50,10 @@ void AppStateManager::changeState(AppState newState) {
         statusDisp.printScreen(wonGameScreen);
         statusDisp.updatePoints(game.getPoints());
       }
+      setTransitionTimer(scoreReviewSkipDelay);
+      break;
+
+    case AppState::SCORE_REVIEW_SKIP:
       setInputContext(AppInputContext::SKIP_INPUT);
       break;
 
@@ -99,6 +103,10 @@ void AppStateManager::stateTransition() {
       break;
 
     case AppState::SCORE_REVIEW:
+      newState = AppState::SCORE_REVIEW_SKIP;
+      break;
+
+    case AppState::SCORE_REVIEW_SKIP:
       newState = game.getState() == GameState::WON && leaderboardManager.isHighscore(game.getPoints()) != -1 ? AppState::HIGHSCORE_REVIEW : AppState::ENDED;
       break;
 
