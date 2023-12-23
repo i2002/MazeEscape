@@ -5,6 +5,7 @@
 #include "src/resources/matrixImages.h"
 #include "src/resources/displayScreens.h"
 #include "src/resources/menuDefinitions.h"
+#include "src/resources/sounds.h"
 
 
 // - Input components
@@ -52,6 +53,7 @@ void loop() {
 
     case AppInputContext::SKIP_INPUT:
       if (triggerBtn.buttonPressed()) {
+        soundManager.playSound(SoundType::INPUT_SELECTION);
         appStateManager.stateTransition();
       }
   }
