@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include <LedControl.h>
 
-enum class AnimationType {
+enum class AnimationType : byte {
   NO_ANIMATION,
   STARTUP_ANIMATION,
   // BOMB_EXPLODE_ANIMATION
@@ -17,7 +17,7 @@ public:
   static const unsigned int animationInterval = 50;
 
 private:
-  byte type;
+  AnimationType type;
   int currentFrame = 0;
   unsigned long lastRender = 0;
 

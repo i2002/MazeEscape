@@ -10,7 +10,7 @@
 /**
  * @brief The current state of the game.
  */
-enum class GameState {
+enum class GameState : byte {
   NOT_STARTED, RUNNING, LOST, WON
 };
 
@@ -18,7 +18,7 @@ enum class GameState {
 /**
  * @brief Represents the type of game matrix cell.
  */
-enum class CellType {
+enum class CellType : byte {
   EMPTY, WALL, PLAYER, BULLET, ENEMY, FINISH
 };
 

@@ -45,21 +45,21 @@ void InputManager::processActionBtn() {
 
 void InputManager::setupSelectInput(const char* title, byte optionsSize, byte initialSelection) {
   new (&state.selectInput) SelectInput{title, optionsSize, initialSelection};
-  inputType = (byte) InputType::SELECT_INPUT;
+  inputType = InputType::SELECT_INPUT;
 }
 
 void InputManager::setupRangeInput(const char* title, byte initialValue) {
   new (&state.rangeInput) RangeInput{title, initialValue};
-  inputType = (byte) InputType::RANGE_INPUT;
+  inputType = InputType::RANGE_INPUT;
 }
 
 void InputManager::setupTextInput(const char* title, byte maxLen, const char* initialValue) {
   new (&state.textInput) TextInput{title, maxLen, initialValue};
-  inputType = (byte) InputType::TEXT_INPUT;
+  inputType = InputType::TEXT_INPUT;
 }
 
 void InputManager::previewInputState() {
-  switch((InputType) inputType) {
+  switch(inputType) {
     case InputType::RANGE_INPUT:
       return state.rangeInput.preview();
 

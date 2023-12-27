@@ -7,7 +7,7 @@
 #include "TextInput.h"
 #include "InputAction.h"
 
-enum class InputType {
+enum class InputType : byte {
   SELECT_INPUT,
   RANGE_INPUT,
   TEXT_INPUT
@@ -24,7 +24,7 @@ union InputState {
 };
 
 class InputManager {
-  byte inputType;
+  InputType inputType;
   InputState state;
   InputAction actions;
 

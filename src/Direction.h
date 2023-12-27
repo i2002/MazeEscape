@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-enum class Direction {
+enum class Direction : byte {
   UP, DOWN, LEFT, RIGHT, NEUTRAL
 };
 

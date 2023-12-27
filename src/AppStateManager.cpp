@@ -11,7 +11,7 @@ void AppStateManager::changeState(AppState newState) {
     return;
   }
 
-  currentState = (byte) newState;
+  currentState = newState;
 
   switch (newState) {
     case AppState::UNCHANGED:
@@ -79,7 +79,7 @@ void AppStateManager::changeState(AppState newState) {
 void AppStateManager::stateTransition() {
   AppState newState = AppState::UNCHANGED;
 
-  switch ((AppState) currentState) {
+  switch (currentState) {
     case AppState::UNCHANGED:
       newState = AppState::STARTUP;
       break;
@@ -137,11 +137,11 @@ void AppStateManager::tickTimer() {
 }
 
 AppInputContext AppStateManager::getInputContext() {
-  return (AppInputContext) inputContext;
+  return inputContext;
 }
 
 void AppStateManager::setInputContext(AppInputContext newContext) {
-  inputContext = (byte) newContext;
+  inputContext = newContext;
 }
 
 void AppStateManager::setTransitionTimer(unsigned long timerDuration) {

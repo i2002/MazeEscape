@@ -2,7 +2,7 @@
 #define APP_STATE_MANAGER_H
 #include <Arduino.h>
 
-enum class AppState {
+enum class AppState : byte {
   UNCHANGED,
   STARTUP,
   MAIN_NAVIGATION,
@@ -16,7 +16,7 @@ enum class AppState {
   ENDED
 };
 
-enum class AppInputContext {
+enum class AppInputContext : byte {
   NONE,
   UI_INPUT,
   GAME_INPUT,
@@ -31,8 +31,8 @@ public:
   static const int highscoreReviewDelay = 3000;
 
 private:
-  byte currentState = (byte) AppState::UNCHANGED;
-  byte inputContext = (byte) AppInputContext::NONE;
+  AppState currentState = AppState::UNCHANGED;
+  AppInputContext inputContext = AppInputContext::NONE;
   unsigned long transitionTimer = 0;
   unsigned long transitionTimerDuration = 0;
 
