@@ -2,15 +2,15 @@
 #define INPUT_HANDLERS_H
 #include <Arduino.h>
 
-enum class InputActionType {
+enum class InputActionType : byte {
   MENU_INPUT,
   LCD_BRIGHTNESS_SETTING,
   MATRIX_BRIGHTNESS_SETTING,
   SOUND_SETTING,
   LEADERBOARD_VIEW,
   HIGHSCORE_NAME,
-  ABOUT_SCREENS,
-  HELP_SCREENS
+  HELP_SCREENS,
+  ABOUT_SCREENS
 };
 
 union InputState;
@@ -44,9 +44,9 @@ private:
 
   void highscoreNameAction(const char* input);
 
-  void aboutPreview(byte option);
-
   void helpPreview(byte option);
+
+  void aboutPreview(byte option);
 };
 
 #endif // INPUT_HANDLERS_H

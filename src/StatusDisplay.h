@@ -46,7 +46,7 @@ public:
   void printTitle(const char *name);
   void printMenuOption(const char *name);
   void printRange(int step);
-  void printScreen(const Screen screen);
+  void printScreen(const Screen &screen);
   void printLeaderboard(byte place, byte score, const char* name);
   void printInputChar(byte cursor, char inputChar);
   void printMenuArrow(bool canPrev = true, bool canNext = true);

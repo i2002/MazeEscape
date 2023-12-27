@@ -23,13 +23,12 @@ void InputAction::setupInput() {
       return inputManager.setupSelectInput("Leaderboard", leaderboardSize + 1, 0);
 
     case InputActionType::HIGHSCORE_NAME:
-      return inputManager.setupTextInput("Leaderboard name", leaderboardNameSize);
-
-    case InputActionType::ABOUT_SCREENS:
-      return inputManager.setupSelectInput(nullptr, aboutScreensSize);
 
     case InputActionType::HELP_SCREENS:
       return inputManager.setupSelectInput(nullptr, helpScreensSize);
+
+    case InputActionType::ABOUT_SCREENS:
+      return inputManager.setupSelectInput(nullptr, aboutScreensSize);
   }
 }
 
@@ -53,11 +52,11 @@ void InputAction::preview(const InputState &state) {
     case InputActionType::HIGHSCORE_NAME:
       return;
 
-    case InputActionType::ABOUT_SCREENS:
-      return aboutPreview(state.selectInput.getCurrentOption());
-
     case InputActionType::HELP_SCREENS:
       return helpPreview(state.selectInput.getCurrentOption());
+
+    case InputActionType::ABOUT_SCREENS:
+      return aboutPreview(state.selectInput.getCurrentOption());
   }
 }
 
@@ -79,8 +78,8 @@ void InputAction::action(const InputState &state) {
       return highscoreNameAction(state.textInput.getInput());
 
     case InputActionType::LEADERBOARD_VIEW:
-    case InputActionType::ABOUT_SCREENS:
     case InputActionType::HELP_SCREENS:
+    case InputActionType::ABOUT_SCREENS:
       return;
   }
 }
@@ -97,8 +96,8 @@ bool InputAction::inputReturn(const InputState &state) {
     case InputActionType::MATRIX_BRIGHTNESS_SETTING:
     case InputActionType::SOUND_SETTING:
     case InputActionType::HIGHSCORE_NAME:
-    case InputActionType::ABOUT_SCREENS:
     case InputActionType::HELP_SCREENS:
+    case InputActionType::ABOUT_SCREENS:
       return true;
   }
 
@@ -153,30 +152,10 @@ void InputAction::highscoreNameAction(const char* input) {
   leaderboardManager.setName(input);
 }
 
-void InputAction::aboutPreview(byte option) {
-  char bufLine1[StatusDisplay::dispCols];
-  char bufLine2[StatusDisplay::dispCols];
-  strcpy_P(bufLine1, (char *)pgm_read_ptr(&(aboutScreens[option][0])));
-  strcpy_P(bufLine2, (char *)pgm_read_ptr(&(aboutScreens[option][1])));
-
-  Screen aboutScreen = {
-    bufLine1,
-    bufLine2
-  };
-
-  statusDisp.printScreen(aboutScreen);
+void InputAction::helpPreview(byte option) {
+  statusDisp.printScreen(helpScreens[option]);
 }
 
-void InputAction::helpPreview(byte option) {
-  char bufLine1[StatusDisplay::dispCols];
-  char bufLine2[StatusDisplay::dispCols];
-  strcpy_P(bufLine1, (char *)pgm_read_ptr(&(helpScreens[option][0])));
-  strcpy_P(bufLine2, (char *)pgm_read_ptr(&(helpScreens[option][1])));
-
-  Screen helpScreen = {
-    bufLine1,
-    bufLine2
-  };
-
-  statusDisp.printScreen(helpScreen);
+void InputAction::aboutPreview(byte option) {
+  statusDisp.printScreen(aboutScreens[option]);
 }

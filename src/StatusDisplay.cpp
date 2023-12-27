@@ -124,15 +124,20 @@ void StatusDisplay::printRange(int step) {
   lcd.write(RIGHT_ARROW);
 }
 
-void StatusDisplay::printScreen(const Screen screen)  {
+void StatusDisplay::printScreen(const Screen &screen)  {
   resetDisplay();
-  if (screen[0]) {
-    lcd.print(screen[0]);
+
+  // copy screen line pointers from program memory
+  Screen screenBuf;
+  memcpy_P(screenBuf, &screen, sizeof(Screen));
+
+  if (screenBuf[0]) {
+    lcd.print(FPTR(screenBuf[0]));
   }
   lcd.setCursor(0, 1);
 
-  if (screen[1]) {
-    lcd.print(screen[1]);
+  if (screenBuf[1]) {
+    lcd.print(FPTR(screenBuf[1]));
   }
 }
 
