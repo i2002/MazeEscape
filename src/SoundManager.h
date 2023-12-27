@@ -2,27 +2,29 @@
 #define SOUND_MANAGER_H
 #include <Arduino.h>
 
-enum class SoundType;
+enum class SoundType : byte;
 
 struct Note {
   int value;
   unsigned long duration;
+
+  constexpr Note (int _value = 0, unsigned long _duration = 0) : value{_value}, duration{_duration} {}
 };
 
 struct Sound {
   const Note* notes;
   int lenNotes;
+
+  constexpr Sound(const Note* _notes = nullptr, int _lenNotes = 0) : notes{_notes}, lenNotes{_lenNotes} {}
 };
 
 class SoundManager {
-  // bool enabled;
-  byte activeSound = 0;
-  byte currentTone = 0;
+  Sound activeSound;
+  Note currentNote;
+  int toneIndex = 0;
   unsigned long lastTone = 0;
 
 public:
-  SoundManager();
-
   void setEnabled(bool state);
 
   bool getEnabled() const;
@@ -34,7 +36,7 @@ public:
 private:
   bool isPlaying() const;
 
-  const Sound* getActiveSound() const;
+  Note getNote(int index) const;
 
   void playTone();
 };

@@ -4,8 +4,6 @@
 #include "utils.h"
 #include "resources/sounds.h"
 
-SoundManager::SoundManager() : activeSound{(byte) SoundType::NONE} {}
-
 void SoundManager::setEnabled(bool state) {
   EEPROM.put(soundSettingStoreIndex, state);
 }
@@ -25,9 +23,8 @@ void SoundManager::playSound(SoundType sound) {
     noTone(buzzerPin);
   }
 
-  activeSound = (byte) sound;
-  currentTone = 0;
-
+  activeSound = getSound(sound);
+  toneIndex = 0;
   playTone();
 }
 
@@ -36,17 +33,21 @@ void SoundManager::runtime() {
     return;
   }
 
-  if (currentTone == 0 || delayedExec(lastTone, getActiveSound()->notes[currentTone - 1].duration)) {
+  if (toneIndex == 0 || delayedExec(lastTone, currentNote.duration)) {
     playTone();
   }
 }
 
 bool SoundManager::isPlaying() const {
-  return getActiveSound() != nullptr;
+  return activeSound.lenNotes != 0;
 }
 
-const Sound* SoundManager::getActiveSound() const {
-  return getSound((SoundType) activeSound);
+Note SoundManager::getNote(int index) const {
+  Note note;
+  if (isPlaying()) {
+    memcpy_P(&note, activeSound.notes + index, sizeof(Note));
+  }
+  return note;
 }
 
 void SoundManager::playTone() {
@@ -54,11 +55,11 @@ void SoundManager::playTone() {
     return;
   }
 
-  const Note& note = getActiveSound()->notes[currentTone];
-  tone(buzzerPin, note.value, note.duration);
+  currentNote = getNote(toneIndex);
+  tone(buzzerPin, currentNote.value, currentNote.duration);
 
-  currentTone++;
-  if (currentTone == getActiveSound()->lenNotes) {
-    activeSound = (byte) SoundType::NONE;
+  toneIndex++;
+  if (toneIndex == activeSound.lenNotes) {
+    activeSound.lenNotes = 0;
   }
 }
