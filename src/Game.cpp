@@ -287,7 +287,8 @@ void Game::levelStartup() {
   lives = 3;
   soundManager.playSound(SoundType::LEVEL_START);
 
-  statusDisp.printTitle("Level setup");
+  static const char levelSetupTitle[] PROGMEM = "Level setup";
+  statusDisp.printTitle(levelSetupTitle);
   gameDisp.displayAnimation(AnimationType::START_LEVEL_ANIMATION);
   appStateManager.changeState(AppState::LEVEL_START);
 }

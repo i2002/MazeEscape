@@ -2,6 +2,8 @@
 #include <EEPROM.h>
 #include "context.h"
 
+#define FPTR(x) (const __FlashStringHelper *)(x)
+
 // custom chars
 uint8_t upDownArrow[8] = {
   0b00100,
@@ -98,9 +100,14 @@ byte StatusDisplay::getBrightness() {
 
 void StatusDisplay::printTitle(const char *name) {
   resetDisplay();
-  byte start = (dispCols - strlen(name)) / 2;
+
+  if (name == nullptr) {
+    return;
+  }
+
+  byte start = (dispCols - strlen_P(name)) / 2;
   lcd.setCursor(start, 0);
-  lcd.print(name);
+  lcd.print(FPTR(name));
 }
 
 void StatusDisplay::printMenuOption(const char *name) {
@@ -108,7 +115,11 @@ void StatusDisplay::printMenuOption(const char *name) {
   byte pos = 0;
   pos += lcd.write('>');
   pos += lcd.write(' ');
-  pos += lcd.print(name);
+  
+  if (name != nullptr) {
+    pos += lcd.print(FPTR(name));
+  }
+
   printBlank(pos, 15);
 }
 

@@ -5,24 +5,31 @@
 
 InputAction::InputAction(InputActionType _type): type{(byte)_type} {}
 
+static const char lcdBrightnessSettingTitle[] PROGMEM = "LCD Brightness";
+static const char matrixBrightnessSettingTitle[] PROGMEM = "Matrix Brightness";
+static const char soundSettingTitle[] PROGMEM = "Sounds";
+static const char leaderboardViewTitle[] PROGMEM = "Leaderboard";
+static const char leaderboardNameInputTitle[] PROGMEM = "Leaderboard name";
+
 void InputAction::setupInput() {
   switch ((InputActionType) type) {
     case InputActionType::MENU_INPUT:
       return menuManager.menuInputSetup();
 
     case InputActionType::LCD_BRIGHTNESS_SETTING:
-      return inputManager.setupRangeInput("LCD Brightness", statusDisp.getBrightness());
+      return inputManager.setupRangeInput(lcdBrightnessSettingTitle, statusDisp.getBrightness());
 
     case InputActionType::MATRIX_BRIGHTNESS_SETTING:
-      return inputManager.setupRangeInput("Matrix Brightness", gameDisp.getBrightness());
+      return inputManager.setupRangeInput(matrixBrightnessSettingTitle, gameDisp.getBrightness());
 
     case InputActionType::SOUND_SETTING:
-      return inputManager.setupSelectInput("Sounds", 2, (byte) soundManager.getEnabled());
+      return inputManager.setupSelectInput(soundSettingTitle, 2, (byte) soundManager.getEnabled());
 
     case InputActionType::LEADERBOARD_VIEW:
-      return inputManager.setupSelectInput("Leaderboard", leaderboardSize + 1, 0);
+      return inputManager.setupSelectInput(leaderboardViewTitle, leaderboardSize + 1, 0);
 
     case InputActionType::HIGHSCORE_NAME:
+      return inputManager.setupTextInput(leaderboardNameInputTitle, leaderboardNameSize);
 
     case InputActionType::HELP_SCREENS:
       return inputManager.setupSelectInput(nullptr, helpScreensSize);
@@ -122,7 +129,9 @@ void InputAction::matrixBrightnessAction(byte step) {
 }
 
 void InputAction::soundSettingPreview(byte option) {
-  statusDisp.printMenuOption(option == 0 ? "Off" : "On");
+  static const char offLabel[] PROGMEM = "Off";
+  static const char onLabel[] PROGMEM = "On";
+  statusDisp.printMenuOption(option ? onLabel : offLabel);
 }
 
 void InputAction::soundSettingAction(byte option) {
@@ -132,6 +141,8 @@ void InputAction::soundSettingAction(byte option) {
 void InputAction::leaderboardPreview(byte option) {
   if (option == leaderboardSize) {
     gameDisp.displayImage(ImageType::BACK);
+    static const char backLabel[] PROGMEM = "Back";
+    statusDisp.printMenuOption(backLabel);
   } else {
     gameDisp.displayImage(ImageType::LEADERBOARD);
     const HighscoreInfo& highscore = leaderboardManager.getHighscore(option);
