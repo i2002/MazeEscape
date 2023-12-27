@@ -2,6 +2,7 @@
 #include <EEPROM.h>
 #include "utils.h"
 #include "context.h"
+#include "resources/matrixImages.h"
 
 
 GameDisplay::GameDisplay() : lc{dinPin, clockPin, loadPin, 1} {}
@@ -42,7 +43,8 @@ void GameDisplay::renderAnimation() {
   animation.render(*this);
 }
 
-void GameDisplay::displayImage(MatrixImage image) {
+void GameDisplay::displayImage(ImageType type) {
+  MatrixImage image = getImage(type);
   for (int i = 0; i < matrixSize; i++) {
     byte row = (image >> i * matrixSize) & 0xFF;
     for (int j = 0; j < matrixSize; j++) {

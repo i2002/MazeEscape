@@ -1,7 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 #include <Arduino.h>
-#include "GameDisplay.h"
+#include "resources/matrixImages.h"
 #include "MenuAction.h"
 
 struct MenuOption;
@@ -23,10 +23,11 @@ struct Menu {
  */
 struct MenuOption {
   const char *name;
-  const MatrixImage &image;
+  const byte image;
   MenuAction action;
 
-  MenuOption(const char *_name, const MatrixImage &_image, MenuAction _action) : name{_name}, image{_image}, action{_action} {};
+  constexpr MenuOption(const char *_name, ImageType _image, MenuAction _action) : name{_name}, image{(byte)_image}, action{_action} {}
+  MenuOption(): name{nullptr}, image{0} {}
 };
 
 #endif // MENU_H

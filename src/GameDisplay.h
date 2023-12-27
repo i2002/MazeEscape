@@ -9,6 +9,7 @@
 
 // Custom type definitions
 typedef uint64_t MatrixImage;
+enum class ImageType : byte;
 
 
 /**
@@ -83,7 +84,7 @@ public:
    * 
    * @param image 
    */
-  void displayImage(MatrixImage image);
+  void displayImage(ImageType type);
 
   /**
    * @brief Start displaying an animation.

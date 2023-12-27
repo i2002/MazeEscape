@@ -43,11 +43,11 @@ void AppStateManager::changeState(AppState newState) {
 
     case AppState::SCORE_REVIEW:
       if (game.getState() == GameState::LOST) {
-        gameDisp.displayImage(lostGameImage);
+        gameDisp.displayImage(ImageType::GAME_LOST);
         statusDisp.printScreen(lostGameScreen);
         soundManager.playSound(SoundType::GAME_LOST);
       } else {
-        gameDisp.displayImage(wonGameImage);
+        gameDisp.displayImage(ImageType::GAME_WON);
         statusDisp.printScreen(wonGameScreen);
         statusDisp.updatePoints(game.getPoints());
         soundManager.playSound(SoundType::GAME_WON);

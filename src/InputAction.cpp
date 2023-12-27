@@ -132,10 +132,9 @@ void InputAction::soundSettingAction(byte option) {
 
 void InputAction::leaderboardPreview(byte option) {
   if (option == leaderboardSize) {
-    gameDisp.displayImage(backImage);
-    statusDisp.printMenuOption("Back");
+    gameDisp.displayImage(ImageType::BACK);
   } else {
-    gameDisp.displayImage(leaderboardImage);
+    gameDisp.displayImage(ImageType::LEADERBOARD);
     const HighscoreInfo& highscore = leaderboardManager.getHighscore(option);
 
     if (highscore.points == maxHighscorePoints) {

@@ -47,7 +47,7 @@ void MenuManager::menuInputAction(byte option) {
 
 void MenuManager::menuInputPreview(byte option) {
   if (!empty()) {
-    gameDisp.displayImage(getOption(option).image);
+    gameDisp.displayImage((ImageType)getOption(option).image);
     statusDisp.printMenuOption(getOption(option).name);
   }
 }
