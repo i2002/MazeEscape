@@ -35,7 +35,7 @@ PROGMEM_SCREEN(welcomeScreen, "     Maze      ", "    Escape     ")
 PROGMEM_SCREEN(lostGameScreen, "You lost :(", "Try again      >")
 PROGMEM_SCREEN(wonGameScreen, "You won :)", "               >")
 
-SCREEN_LINES(aboutScreen1, "- Maze Escape -", "  version 1.1  ")
+SCREEN_LINES(aboutScreen1, "- Maze Escape -", "  version 1.2  ")
 SCREEN_LINES(aboutScreen2, "-    Author   -", " Tudor Butufei ")
 SCREEN_LINES(aboutScreen3, "- Github user -", "     i2002     ")
 
