@@ -13,7 +13,12 @@ struct MenuOption;
 struct Menu {
   const char *name;
   const MenuOption *options;
-  int lenOptions;
+  byte lenOptions;
+
+  constexpr Menu(const char* name = nullptr, const MenuOption *options = nullptr, byte lenOptions = 0): name{name}, options{options}, lenOptions{lenOptions} {}
+
+  Menu(AppMenu menuType);
+
 };
 
 /**

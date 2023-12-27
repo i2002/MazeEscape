@@ -24,7 +24,7 @@ void AppStateManager::changeState(AppState newState) {
       setTransitionTimer(startupDelay);
       break;
     case AppState::MAIN_NAVIGATION:
-      menuManager.resetMenu(getMenu(AppMenu::MAIN_MENU));
+      menuManager.resetMenu(AppMenu::MAIN_MENU);
       setInputContext(AppInputContext::UI_INPUT);
       break;
 

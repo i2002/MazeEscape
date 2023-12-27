@@ -3,15 +3,16 @@
 #include "context.h"
 
 
-void MenuManager::resetMenu(const Menu &menu) {
+void MenuManager::resetMenu(AppMenu menu) {
   stackSize = 0;
   pushMenu(menu);
 }
 
-void MenuManager::pushMenu(const Menu &menu) {
-  menuStack[stackSize].menu = &menu;
+void MenuManager::pushMenu(AppMenu menu) {
+  menuStack[stackSize].menuType = menu;
   menuStack[stackSize].savedPos = 0;
   stackSize++;
+  currentMenu = Menu(getActiveMenu().menuType);
   showMenu();
 }
 
@@ -20,9 +21,9 @@ void MenuManager::popMenu() {
     return;
   }
 
-  menuStack[stackSize - 1].menu = nullptr;
   menuStack[stackSize - 1].savedPos = 0;
   stackSize--;
+  currentMenu = Menu(getActiveMenu().menuType);
   showMenu();
 }
 
@@ -34,13 +35,13 @@ void MenuManager::showMenu() {
 
 void MenuManager::menuInputSetup() {
   if (!empty()) {
-    inputManager.setupSelectInput(currentMenu().menu->name, currentMenu().menu->lenOptions, currentMenu().savedPos);
+    inputManager.setupSelectInput(currentMenu.name, currentMenu.lenOptions, getActiveMenu().savedPos);
   }
 }
 
 void MenuManager::menuInputAction(byte option) {
   if (!empty()) {
-    currentMenu().savedPos = option;
+    getActiveMenu().savedPos = option;
     getOption(option).action.handleMenuAction();
   }
 }
@@ -56,10 +57,12 @@ bool MenuManager::empty() {
   return stackSize == 0;
 }
 
-MenuStackItem& MenuManager::currentMenu() {
+MenuStackItem& MenuManager::getActiveMenu() {
   return menuStack[stackSize - 1];
 }
 
-const MenuOption& MenuManager::getOption(byte index) {
-  return currentMenu().menu->options[index];
+MenuOption MenuManager::getOption(byte index) {
+  MenuOption option;
+  memcpy_P(&option, currentMenu.options + index, sizeof(MenuOption));
+  return option;
 }

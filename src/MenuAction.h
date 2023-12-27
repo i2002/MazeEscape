@@ -3,9 +3,9 @@
 #include <Arduino.h>
 #include "InputAction.h"
 
-enum class AppMenu;
+enum class AppMenu : byte;
 
-enum class MenuActionType {
+enum class MenuActionType : byte {
   CHANGE_MENU,
   MENU_BACK,
   START_GAME,
@@ -15,13 +15,15 @@ enum class MenuActionType {
 };
 
 class MenuAction {
-  byte type;
+  MenuActionType type;
   byte data;
 
 public:
-  MenuAction(MenuActionType _type, byte _data = 0);
-  MenuAction(AppMenu menu);
-  MenuAction(InputActionType input);
+  constexpr MenuAction(MenuActionType _type, byte _data = 0) : type{_type}, data{_data} {}
+  constexpr MenuAction(AppMenu menu) : MenuAction(MenuActionType::CHANGE_MENU, (byte) menu) {}
+  constexpr MenuAction(InputActionType input) : MenuAction(MenuActionType::UI_INPUT, (byte) input) {}
+  constexpr MenuAction() : MenuAction(MenuActionType::NO_ACTION, 0) {}
+ 
   void handleMenuAction() const;
 
 private:

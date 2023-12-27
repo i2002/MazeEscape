@@ -4,7 +4,7 @@
 #include "Menu.h"
 
 struct MenuStackItem {
-  Menu const* menu;
+  AppMenu menuType;
   int savedPos;
 };
 
@@ -13,10 +13,11 @@ class MenuManager {
 
   byte stackSize = 0;
   MenuStackItem menuStack[maxMenuStack];
+  Menu currentMenu;
 
 public:
-  void resetMenu(const Menu &menu);
-  void pushMenu(const Menu &menu);
+  void resetMenu(AppMenu menu);
+  void pushMenu(AppMenu menu);
   void popMenu();
   void showMenu();
   void menuInputSetup();
@@ -25,8 +26,8 @@ public:
 
 private:
   bool empty();
-  MenuStackItem& currentMenu();
-  const MenuOption& getOption(byte index);
+  MenuStackItem& getActiveMenu();
+  MenuOption getOption(byte index);
 };
 
 #endif // MENU_MANAGER_H
