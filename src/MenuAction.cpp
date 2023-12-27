@@ -2,6 +2,7 @@
 #include "context.h"
 #include "resources/menuDefinitions.h"
 
+
 void MenuAction::handleMenuAction() const {
   switch((MenuActionType)type) {
     case MenuActionType::CHANGE_MENU:

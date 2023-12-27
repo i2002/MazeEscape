@@ -1,10 +1,10 @@
 #include "RangeInput.h"
 #include "context.h"
 
-RangeInput::RangeInput(const char *title, byte initialValue) {
-  statusDisp.printTitle(title);
 
+RangeInput::RangeInput(const char *title, byte initialValue) {
   value = initialValue <= maxSteps ? initialValue : 0;
+  statusDisp.printTitle(title);
 }
 
 bool RangeInput::stepsIncrement() {

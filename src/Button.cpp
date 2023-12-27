@@ -1,5 +1,8 @@
 #include "Button.h"
 
+
+Button::Button(const byte _buttonPin) : buttonPin{_buttonPin} {}
+
 void Button::setup() {
   digitalWrite(buttonPin, INPUT_PULLUP);
 }

@@ -1,11 +1,13 @@
 #include "Position.h"
 #include "Game.h"
 
+
 static const char positionMovementMatrix[5][2] = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}, {0, 0}};
 
-Position::Position(): Position{0, 0} {}
 
-Position::Position(char _x, char _y): x{_x}, y{_y} {}
+Position::Position() : Position{0, 0} {}
+
+Position::Position(char _x, char _y) : x{_x}, y{_y} {}
 
 Position Position::randomPos() {
   return {

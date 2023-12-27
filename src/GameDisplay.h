@@ -18,6 +18,7 @@ enum class ImageType : byte;
 class GameDisplay {
 public:
   // Display configuration
+  static const int matrixSize = 8;
   static const unsigned long playerBlinkInterval = 1000;
   static const unsigned long enemyBlinkInterval = 200;
 
@@ -37,15 +38,10 @@ private:
   GameDisplayAnimation animation = AnimationType::NO_ANIMATION;
 
 public:
-  static const int matrixSize = 8;
   friend GameDisplayAnimation;
 
   /**
    * @brief Construct a new Display Matrix object.
-   *
-   * @param dinPin the data pin for LED control
-   * @param clockPin the clock pin for LED control
-   * @param loadPin the load pin for LED control
    */
   GameDisplay();
 

@@ -1,11 +1,12 @@
 #ifndef LEADERBOARD_MANAGER_H
 #define LEADERBOARD_MANAGER_H
+
 #include <Arduino.h>
 #include "config.h"
 
 
 /**
- * @brief Highscore information representation
+ * @brief Highscore information representation.
  */
 struct HighscoreInfo {
   char name[leaderboardNameSize];

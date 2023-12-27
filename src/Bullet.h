@@ -15,7 +15,7 @@ class Bullet {
 
 public:
   /**
-   * @brief Construct a new Bullet object with default parameters;.
+   * @brief Construct a new Bullet object with default parameters.
    * (position 0, 0, direction up and inactive)
    */
   Bullet();

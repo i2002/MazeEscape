@@ -4,6 +4,7 @@
 #include "utils.h"
 #include "resources/sounds.h"
 
+
 void SoundManager::setEnabled(bool state) {
   EEPROM.put(soundSettingStoreIndex, state);
 }

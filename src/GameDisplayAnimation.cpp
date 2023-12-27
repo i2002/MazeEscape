@@ -3,7 +3,7 @@
 #include "utils.h"
 #include "context.h"
 
-GameDisplayAnimation::GameDisplayAnimation(AnimationType type) : type{type}, currentFrame{0} {}
+GameDisplayAnimation::GameDisplayAnimation(AnimationType _type) : type{_type}, currentFrame{0} {}
 
 void GameDisplayAnimation::render(GameDisplay &disp) {
   if (!inProgress()) {

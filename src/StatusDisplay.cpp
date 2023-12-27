@@ -2,9 +2,11 @@
 #include <EEPROM.h>
 #include "context.h"
 
+
+// Macro to cast to flash string helper (print from program memory string pointers)
 #define FPTR(x) (const __FlashStringHelper *)(x)
 
-// custom chars
+// Custom characters definitions
 uint8_t upDownArrow[8] = {
   0b00100,
   0b01110,
@@ -71,6 +73,7 @@ byte heart[8] = {
 	0b00000
 };
 
+StatusDisplay::StatusDisplay() : lcd{rs, en, d4, d5, d6, d7} {}
 
 void StatusDisplay::setup() {
   lcd.begin(dispCols, dispRows);

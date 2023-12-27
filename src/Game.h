@@ -7,6 +7,7 @@
 #include "Bullet.h"
 #include "Enemy.h"
 
+
 /**
  * @brief The current state of the game.
  */
@@ -23,22 +24,27 @@ enum class CellType : byte {
 };
 
 
+/**
+ * @brief Represents game level information.
+ */
 struct Level {
   byte enemyCount;
   byte movementChance;
   byte fireChance;
 };
 
+
 /**
  * @brief Manage the game state and actions.
  */
 class Game {
-  // Game configuration
 public:
+  // Game map configuration
   static constexpr int matrixHeight = 16;
   static constexpr int matrixWidth = 16;
 
 private:
+  // Game behaviour configuration
   static constexpr int maxBullets = 5;
   static constexpr int maxEnemies = 15;
   static constexpr int fireDistance = 5;
@@ -48,22 +54,20 @@ private:
   static constexpr int minPlayerDistance = 2;
   static constexpr int minEnemyDistance = 5;
   static constexpr int randomPathChance = 20;
-  // static constexpr int movementChance = 80;
-  // static constexpr int fireChance = 20;
   static constexpr int destroyWallChance = 1;
   static constexpr int maxEnemyMoveTries = 10;
   static constexpr int enemyKillPoints = 2;
   static constexpr int remainingHealthPoints = 4;
 
+  // Game levels configuration
   static constexpr int maxLevels = 3;
   static const Level levels[maxLevels];
 
-
   // Game state
   GameState gameState = GameState::NOT_STARTED;
-  
   CellType gameMatrix[matrixHeight][matrixWidth];
 
+  // Game elements
   Position playerPos;
   Position finishPos;
   Bullet bullets[maxBullets];

@@ -1,10 +1,13 @@
 #ifndef MENU_H
 #define MENU_H
+
 #include <Arduino.h>
 #include "resources/matrixImages.h"
 #include "MenuAction.h"
 
+
 struct MenuOption;
+
 
 /**
  * @struct Menu
@@ -15,11 +18,23 @@ struct Menu {
   const MenuOption *options;
   byte lenOptions;
 
-  constexpr Menu(const char* name = nullptr, const MenuOption *options = nullptr, byte lenOptions = 0): name{name}, options{options}, lenOptions{lenOptions} {}
+  /**
+   * @brief Construct a new Menu object.
+   * 
+   * @param name menu name
+   * @param options pointer to menu options array
+   * @param lenOptions the number of menu options
+   */
+  constexpr Menu(const char* _name = nullptr, const MenuOption *_options = nullptr, byte _lenOptions = 0): name{_name}, options{_options}, lenOptions{_lenOptions} {}
 
+  /**
+   * @brief Load menu information from program memory given menu id.
+   * 
+   * @param menuType
+   */
   Menu(AppMenu menuType);
-
 };
+
 
 /**
  * @struct MenuOption
@@ -31,8 +46,19 @@ struct MenuOption {
   const byte image;
   MenuAction action;
 
+  /**
+   * @brief Construct a new MenuOption object.
+   * 
+   * @param name menu option name
+   * @param image menu option image to be shown on matrix display
+   * @param action action to be executed on menu option select
+   */
   constexpr MenuOption(const char *_name, ImageType _image, MenuAction _action) : name{_name}, image{(byte)_image}, action{_action} {}
-  MenuOption(): name{nullptr}, image{0} {}
+
+  /**
+   * @brief Construct a new Menu Option object with default options.
+   */
+  MenuOption();
 };
 
 #endif // MENU_H

@@ -3,29 +3,56 @@
 
 #include "Position.h"
 
+
+/**
+ * @brief Game enemy information.
+ */
 class Enemy {
   Position pos = {0, 0};
   bool alive = false;
 
 public:
-  Enemy(Position pos, bool alive): pos{pos}, alive{alive} {}
+  /**
+   * @brief Construct a new Enemy object with default parameters.
+   * (position: 0, 0, and dead)
+   */
   Enemy() {}
 
-  void setPos(Position pos) {
-    this->pos = pos;
-  }
+  /**
+   * @brief Construct a new Enemy object
+   * 
+   * @param pos the current position of the enemy on the game map
+   * @param alive whether the enemy is alive or dead
+   */
+  Enemy(Position pos, bool alive);
 
-  Position getPos() const {
-    return pos;
-  }
+  /**
+   * @brief Set enemy position on game map.
+   * 
+   * @param pos the new position
+   */
+  void setPos(Position pos);
 
-  void setAlive(bool alive) {
-    this->alive = alive;
-  }
+  /**
+   * @brief Get enemy position on game map.
+   *
+   * @return Position 
+   */
+  Position getPos() const;
 
-  bool isAlive() const {
-    return alive;
-  }
+  /**
+   * @brief Set whether the enemy is alive or dead.
+   * 
+   * @param alive true if enemy alive, false if dead
+   */
+  void setAlive(bool alive);
+
+  /**
+   * @brief Check whether enemy is alive or dead
+   * 
+   * @return true if enemy is alive, false if it's dead
+   */
+  bool isAlive() const;
 };
 
 #endif // ENEMY_H

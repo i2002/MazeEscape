@@ -39,9 +39,7 @@ public:
    * @param invertX if the x axis should be inverted
    * @param intertY if the y axis should be inverted
    */
-  Joystick(const byte joystickPinX, const byte joystickPinY, const bool invertX = false, const bool invertY = false) : 
-    joystickPinX{joystickPinX}, joystickPinY{joystickPinY}, invertX{invertX}, invertY{invertY} {}
-
+  Joystick(const byte joystickPinX, const byte joystickPinY, const bool invertX = false, const bool invertY = false);
 
   /**
    * @brief Setup joystick input pins.
@@ -50,12 +48,11 @@ public:
 
   /**
    * @brief Process joystick movement.
-   * Based on current values and previous joystick position, it computes if the current joystick position changed.
+   * Based on current values and previous joystick position, it computes whether the current joystick position changed.
    * It is considered a joystick position change if leaving from NEUTRAL to either direction or returning from any
    * direction to NEUTRAL.
    *
-   * @return true if the joystick state changed
-   * @return false otherwise
+   * @return true if the joystick state changed, false otherwise
    */
   bool processMovement();
 
@@ -73,8 +70,7 @@ private:
    * @param value joystick axis value
    * @param upper true for upper threshold, false for lower threshold
    * @param inverted whether the axis range is inverted or not
-   * @return true if the joystick exceeds the threshold in the specified direction
-   * @return false otherwise
+   * @return true if the joystick exceeds the threshold in the specified direction, false otherwise
    */
   bool checkThreshold(int value, bool upper);
 
@@ -84,8 +80,7 @@ private:
    * @param value joystick axis value
    * @param upper true for upper threshold, false for lower threshold
    * @param inverted whether the axis range is inverted or not
-   * @return true if the joystick returned from the specified direction
-   * @return false otherwise
+   * @return true if the joystick returned from the specified direction, false otherwise
    */
   bool checkReturn(int value, bool upper);
 
@@ -93,8 +88,8 @@ private:
    * @brief Check if a joystick position is triggered on the upper or lower threshold of the value range.
    * 
    * @param pos the joystick position
-   * @return true the specified joystick position is triggered on upper threshold
-   * @return false the specified joystick position is triggered on lower threshold
+   * @return true if the specified joystick position is triggered on upper threshold
+   * @return false if the specified joystick position is triggered on lower threshold
    */
   bool isUpperThreshold(Direction pos);
 };

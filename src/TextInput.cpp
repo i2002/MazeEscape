@@ -1,9 +1,8 @@
 #include "TextInput.h"
 #include "context.h"
 
-TextInput::TextInput(const char *title, byte _maxLen, const char* initialValue) :
-  maxLen{_maxLen}, cursor{0}
-{
+
+TextInput::TextInput(const char *title, byte _maxLen, const char* initialValue) : maxLen{_maxLen}, cursor{0} {
   statusDisp.printTitle(title);
 
   for (int i = 0; i < maxLen; i++) {

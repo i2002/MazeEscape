@@ -1,6 +1,6 @@
 #ifndef SOUNDS_H
 #define SOUNDS_H
-#include "../SoundManager.h"
+#include "../Sound.h"
 #include "pitches.h"
 
 enum class SoundType : byte {

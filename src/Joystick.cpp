@@ -1,5 +1,10 @@
 #include "Joystick.h"
 
+
+Joystick::Joystick(const byte _joystickPinX, const byte _joystickPinY, const bool _invertX, const bool _invertY) : 
+  joystickPinX{_joystickPinX}, joystickPinY{_joystickPinY}, invertX{_invertX}, invertY{_invertY}
+{}
+
 void Joystick::setup() {
   pinMode(joystickPinX, INPUT);
   pinMode(joystickPinY, INPUT);

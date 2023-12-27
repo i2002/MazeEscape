@@ -6,6 +6,7 @@
 #include "resources/displayScreens.h"
 #include "resources/sounds.h"
 
+
 void AppStateManager::changeState(AppState newState) {
   if (newState == AppState::UNCHANGED) {
     return;

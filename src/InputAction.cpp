@@ -3,16 +3,19 @@
 #include "resources/matrixImages.h"
 #include "resources/displayScreens.h"
 
-InputAction::InputAction(InputActionType _type): type{(byte)_type} {}
 
-static const char lcdBrightnessSettingTitle[] PROGMEM = "LCD Brightness";
-static const char matrixBrightnessSettingTitle[] PROGMEM = "Matrix Brightness";
-static const char soundSettingTitle[] PROGMEM = "Sounds";
-static const char leaderboardViewTitle[] PROGMEM = "Leaderboard";
-static const char leaderboardNameInputTitle[] PROGMEM = "Leaderboard name";
+InputAction::InputAction(InputActionType _type) : type{_type} {}
 
 void InputAction::setupInput() {
-  switch ((InputActionType) type) {
+  // Input titles
+  static const char lcdBrightnessSettingTitle[] PROGMEM = "LCD Brightness";
+  static const char matrixBrightnessSettingTitle[] PROGMEM = "Matrix Brightness";
+  static const char soundSettingTitle[] PROGMEM = "Sounds";
+  static const char leaderboardViewTitle[] PROGMEM = "Leaderboard";
+  static const char leaderboardNameInputTitle[] PROGMEM = "Leaderboard name";
+
+
+  switch (type) {
     case InputActionType::MENU_INPUT:
       return menuManager.menuInputSetup();
 
@@ -36,11 +39,14 @@ void InputAction::setupInput() {
 
     case InputActionType::ABOUT_SCREENS:
       return inputManager.setupSelectInput(nullptr, aboutScreensSize);
+
+    case InputActionType::NONE:
+      return;
   }
 }
 
 void InputAction::preview(const InputState &state) {
-  switch ((InputActionType) type) {
+  switch (type) {
     case InputActionType::MENU_INPUT:
       return menuManager.menuInputPreview(state.selectInput.getCurrentOption());
 
@@ -64,11 +70,14 @@ void InputAction::preview(const InputState &state) {
 
     case InputActionType::ABOUT_SCREENS:
       return aboutPreview(state.selectInput.getCurrentOption());
+
+    case InputActionType::NONE:
+      return;
   }
 }
 
 void InputAction::action(const InputState &state) {
-  switch ((InputActionType) type) {
+  switch (type) {
     case InputActionType::MENU_INPUT:
       return menuManager.menuInputAction(state.selectInput.getCurrentOption());
 
@@ -87,12 +96,13 @@ void InputAction::action(const InputState &state) {
     case InputActionType::LEADERBOARD_VIEW:
     case InputActionType::HELP_SCREENS:
     case InputActionType::ABOUT_SCREENS:
+    case InputActionType::NONE:
       return;
   }
 }
 
 bool InputAction::inputReturn(const InputState &state) {
-  switch((InputActionType) type) {
+  switch(type) {
     case InputActionType::LEADERBOARD_VIEW:
       return leaderboardClose(state.selectInput.currentOption);
 
@@ -105,6 +115,7 @@ bool InputAction::inputReturn(const InputState &state) {
     case InputActionType::HIGHSCORE_NAME:
     case InputActionType::HELP_SCREENS:
     case InputActionType::ABOUT_SCREENS:
+    case InputActionType::NONE:
       return true;
   }
 

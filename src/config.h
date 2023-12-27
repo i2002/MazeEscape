@@ -1,10 +1,13 @@
 #ifndef CONFIG_H
 #define CONFIG_H
+
 #include <Arduino.h>
 
 // switch config between breadboard and pcb build
 #define BREADBOARD_BUILD
 
+// --- Pin configuration ---
+// - LCD
 const byte rs = 9;
 const byte en = 13;
 const byte d4 = 7;
@@ -13,6 +16,18 @@ const byte d6 = 4;
 const byte d7 = 3;
 const byte pinA = 5;
 
+// - LED matrix
+const byte dinPin = 12;
+const byte clockPin = 11;
+const byte loadPin = 10;
+
+#ifdef BREADBOARD_BUILD
+  const bool matrixCommonAnode = true;
+#else
+  const bool matrixCommonAnode = false;
+#endif // BREADBOARD_BUILD
+
+// - Joystick
 #ifdef BREADBOARD_BUILD
   const byte joystickPinX = A0;
   const byte joystickPinY = A1;
@@ -25,24 +40,20 @@ const byte pinA = 5;
   const bool joystickInvertY = false;
 #endif // BREADBOARD_BUILD
 
-const byte dinPin = 12;
-const byte clockPin = 11;
-const byte loadPin = 10;
-
+// - Button
 const byte triggerPin = A2;
 
+// - Buzzer
 const byte buzzerPin = 2;
 
-#ifdef BREADBOARD_BUILD
-  const bool matrixCommonAnode = true;
-#else
-  const bool matrixCommonAnode = false;
-#endif // BREADBOARD_BUILD
 
+// --- Leaderboard config ---
 const int leaderboardSize = 5;
 const int leaderboardNameSize = 5;
 const int maxHighscorePoints = 255;
 
+
+// --- EEPROM storage config ---
 const int lcdBrightnessStoreIndex = 2;
 const int matrixBrightnessStoreIndex = 4;
 const int soundSettingStoreIndex = 6;

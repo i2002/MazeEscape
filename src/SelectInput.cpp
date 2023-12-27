@@ -2,10 +2,9 @@
 #include "context.h"
 #include "resources/sounds.h"
 
-SelectInput::SelectInput(const char *title, byte _optionsSize, byte initialSelection) {
-  optionsSize = _optionsSize;
-  currentOption = initialSelection < optionsSize ? initialSelection : 0;
 
+SelectInput::SelectInput(const char *title, byte _optionsSize, byte initialSelection) : optionsSize{_optionsSize} {
+  currentOption = initialSelection < optionsSize ? initialSelection : 0;
   statusDisp.printTitle(title);
 }
 

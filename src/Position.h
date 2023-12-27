@@ -1,6 +1,8 @@
 #ifndef POSITION_H
 #define POSITION_H
+
 #include "Direction.h"
+
 
 /**
  * @brief Represents a position in the game matrix

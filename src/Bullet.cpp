@@ -1,5 +1,6 @@
 #include "Bullet.h"
 
+
 Bullet::Bullet() : Bullet{{0, 0}, Direction::UP, false} {}
 
 Bullet::Bullet(Position _pos, Direction _dir, bool _active) : pos{_pos}, dir{_dir}, active{_active} {}

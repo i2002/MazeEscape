@@ -10,6 +10,7 @@ const Level Game::levels[maxLevels] = {
   { 10, 65, 40 }
 };
 
+
 void Game::startGame() {
   level = 0;
   points = 0;

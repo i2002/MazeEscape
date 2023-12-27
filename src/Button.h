@@ -25,7 +25,7 @@ public:
    * 
    * @param buttonPin the pin of the button
    */
-  Button(const byte buttonPin) : buttonPin{buttonPin} {}
+  Button(const byte buttonPin);
 
   /**
    * @brief Setup button input pin.
